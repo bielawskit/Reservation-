@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    System rezerwacji kortów
+{% endblock %}
+
+{% block container %}
+    <h1>Strona do rezerwacji kortów</h1>
+{% endblock %}
+
+{% block styles %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static './css/main.css' %}">
+{% endblock %}
