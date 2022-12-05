@@ -10,11 +10,11 @@
 
         {% if user.is_authenticated %}
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'logout' %}">Logout {{ user }}</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'users:logout_view' %}">Logout {{ user }}</a>
             </li>
         {% else %}
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'login' %}">Login</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'users:login_view' %}">Login</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'users:registration_view' %}">Registration</a>

@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import AuthenticationForm
 
 
 class RegistrationForm(forms.ModelForm):
@@ -17,3 +18,15 @@ class RegistrationForm(forms.ModelForm):
             user.save()
 
         return user
+
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(widget=forms.EmailInput(attrs={
+        'placeholder': 'Email'
+    }))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'placeholder': 'password'
+    }))
+
+    class Meta:
+        fields = ('username', 'password')
