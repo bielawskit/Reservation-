@@ -38,8 +38,9 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_superuser = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = ['name', 'surname']
 
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.email
+        return self.name
