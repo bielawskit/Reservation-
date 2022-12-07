@@ -42,7 +42,9 @@ INSTALLED_APPS = [
 
     # local apps
     'home.apps.HomeConfig',
-    'users.apps.UsersConfig'
+    'users.apps.UsersConfig',
+    'reservation.apps.ReservationConfig',
+    'club.apps.ClubConfig',
 
 ]
 

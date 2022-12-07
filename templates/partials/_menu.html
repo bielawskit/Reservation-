@@ -12,6 +12,9 @@
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'users:logout_view' %}">Logout {{ user }}</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'reservation:reservation_view' %}">Reservation</a>
+            </li>
         {% else %}
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'users:login_view' %}">Login</a>
@@ -19,6 +22,7 @@
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'users:registration_view' %}">Registration</a>
             </li>
+
         {% endif %}
     </ul>
   </div>

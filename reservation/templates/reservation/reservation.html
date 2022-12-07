@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Reservation
+{% endblock %}
+
+{% block container %}
+
+    <form action="" method="post">
+        {% csrf_token %}
+
+        {{ form }}
+
+        <button type="submit" class="btn btn-success">Reservation</button>
+    </form>
+
+{% endblock %}

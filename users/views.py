@@ -39,3 +39,16 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('users:login_view')
+
+def reservation_view(request):
+    if request.method == "POST":
+        form = forms.RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_active = True
+            user.save()
+            return redirect('users:login_view')
+    else:
+        form = forms.RegistrationForm()
+
+    return render(request, 'users/registration.html', {'form': form})
