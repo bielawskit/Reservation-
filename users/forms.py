@@ -30,4 +30,3 @@ class LoginForm(AuthenticationForm):
 
     class Meta:
         fields = ('username', 'password')
-

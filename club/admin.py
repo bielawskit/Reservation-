@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from . import models
+
+admin.site.register(models.Club)
+admin.site.register(models.Court)
+admin.site.register(models.PriceList)

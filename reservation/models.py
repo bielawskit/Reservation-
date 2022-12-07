@@ -6,7 +6,7 @@ from club.models import Club
 class Coach(models.Model):
     name = models.CharField(max_length=25)
     surname = models.CharField(max_length=35)
-    price = models.IntegerField
+    price = models.IntegerField()
 
 
 class Reservation(models.Model):

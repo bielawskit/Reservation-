@@ -5,4 +5,10 @@ from . import models
 class ClubForm(forms.ModelForm):
     class Meta:
         model = models.Club
-        fields = ('name', 'location')
+        fields = ('name', 'location', 'quantity', 'multisport')
+
+
+class CourtForm(forms.ModelForm):
+    class Meta:
+        model = models.Court
+        fields = ('club', 'name', 'type', 'preference')

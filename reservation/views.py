@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
-
+from users.models import CustomUser
 from reservation import forms
+from reservation.models import Reservation
 
 
 def reservation_view(request):
@@ -15,3 +16,15 @@ def reservation_view(request):
     return render(request, 'reservation/reservation.html', {'form': form})
 
 
+def reservation_show_all(request):
+    reservations = Reservation.objects.all()
+    # user = CustomUser.objects.filter(user_id=user_id)
+
+    return render(
+        request,
+        "reservation/show_all_reservation.html",
+        context={
+            'reservations': reservations,
+            # 'user': user
+        }
+    )

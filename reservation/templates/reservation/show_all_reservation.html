@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+    Rezerwacje
+{% endblock %}
+
+{% block container %}
+
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Klub</th>
+            <th>Początek</th>
+            <th>Koniec</th>
+            <th>Trener</th>
+
+        </tr>
+        {% for reservation in reservations %}
+
+        <tr>
+            <td>{{ reservation.i }}</td>
+            <td>{{ reservation.club }}</td>
+            <td>{{ reservation.start }}</td>
+            <td>{{ reservation.finish }}</td>
+            <td>{{ reservation.couch }}</td>
+
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}
