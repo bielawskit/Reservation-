@@ -6,10 +6,22 @@
 {% endblock %}
 
 {% block container %}
-    <h1>Strona do rezerwacji kortów</h1>
+  <section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="h1 fw-bold">Rezerwacja kortów tenisowych</h1>
+      </div>
+      <div class="pb-3 h5">Wszystkie korty</div>
+    </div>
+    {% for club in clubs %}
+
+    {% endfor %}
+
+  </section>
 {% endblock %}
 
 {% block styles %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static './css/main.css' %}">
 {% endblock %}
+

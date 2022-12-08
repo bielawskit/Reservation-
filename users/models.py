@@ -14,11 +14,7 @@ class CustomUserManager(BaseUserManager):
         user.is_active = True
 
         user.save(using=self._db)
-        # if user.is_club:
-        #     group = Group.objects.get(name='clubs')
-        # else:
-        #     group = Group.objects.get(name='players')
-        # user.groups.add(group)
+
         return user
 
     def create_superuser(self, email, name, surname, password=None):

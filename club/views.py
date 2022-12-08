@@ -4,7 +4,7 @@ from club.models import Club
 from django.contrib.auth.decorators import permission_required
 
 
-@permission_required
+
 def club_add(request):
     if request.method == "POST":
         form = forms.ClubForm(request.POST)
