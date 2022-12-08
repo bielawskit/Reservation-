@@ -18,13 +18,11 @@ def reservation_view(request):
 
 def reservation_show_all(request):
     reservations = Reservation.objects.all()
-    # user = CustomUser.objects.filter(user_id=user_id)
 
     return render(
         request,
         "reservation/show_all_reservation.html",
         context={
             'reservations': reservations,
-            # 'user': user
         }
     )

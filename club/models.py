@@ -8,6 +8,9 @@ class Club(models.Model):
     type = [(1, 'Akceptuje'), (2, 'Nie akceptuje')]
     multisport = models.IntegerField(choices=type)
 
+    def __str__(self):
+        return self.name
+
 
 class Court(models.Model):
     name = models.CharField(max_length=20)
@@ -21,3 +24,6 @@ class Court(models.Model):
 class PriceList(models.Model):
     weekdays = models.IntegerField()
     weekend = models.IntegerField()
+    court_price = [(70, '6-14'), (80, '14-22')]
+    cost = models.IntegerField(choices=court_price)
+    club = models.ForeignKey('Club', on_delete=models.CASCADE)

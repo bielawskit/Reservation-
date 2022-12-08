@@ -8,23 +8,28 @@
 {% block container %}
 
     <table>
+        <style>
+        table, tr, th, td {
+            border: solid;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+        </style>
         <tr>
             <th>Id</th>
             <th>Klub</th>
             <th>Początek</th>
             <th>Koniec</th>
             <th>Trener</th>
-
         </tr>
         {% for reservation in reservations %}
 
         <tr>
-            <td>{{ reservation.i }}</td>
+            <td>{{ reservation.id }}</td>
             <td>{{ reservation.club }}</td>
             <td>{{ reservation.start }}</td>
             <td>{{ reservation.finish }}</td>
-            <td>{{ reservation.couch }}</td>
-
+            <td>{{ reservation.coach }}</td>
         </tr>
         {% endfor %}
     </table>

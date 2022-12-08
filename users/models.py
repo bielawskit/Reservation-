@@ -1,5 +1,5 @@
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
-from django.contrib.auth.models import PermissionsMixin
+from django.contrib.auth.models import PermissionsMixin, Group
 from django.db import models
 
 
@@ -14,6 +14,11 @@ class CustomUserManager(BaseUserManager):
         user.is_active = True
 
         user.save(using=self._db)
+        # if user.is_club:
+        #     group = Group.objects.get(name='clubs')
+        # else:
+        #     group = Group.objects.get(name='players')
+        # user.groups.add(group)
         return user
 
     def create_superuser(self, email, name, surname, password=None):
@@ -32,10 +37,12 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     name = models.CharField(max_length=25)
     surname = models.CharField(max_length=30)
     date_join = models.DateTimeField(verbose_name='Date joined', auto_now_add=True)
+    NIP = models.CharField(max_length=20, unique=True, null=True, blank=True)
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
+    is_club = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = ['name', 'surname']
