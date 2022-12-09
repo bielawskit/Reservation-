@@ -15,12 +15,7 @@
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'reservation:reservation_view' %}">Dodaj rezerwacje</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'club:clubAdd' %}">Dodaj obiekt</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'club:courtAdd' %}">Dodaj kort</a>
-            </li>
+
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'reservation:reservation_show_all' %}">Twoje rezerwacje</a>
             </li>
@@ -33,8 +28,18 @@
             </li>
         {% endif %}
         <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'club:club_show_all' %}">Wszystkie korty</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'club:club_show_all' %}">Wszystkie kluby</a>
         </li>
+        {% if user.is_club %}
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'club:clubAdd' %}">Dodaj obiekt</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'club:courtAdd' %}">Dodaj kort</a>
+            </li>
+
+        {% endif %}
     </ul>
   </div>
+
 </nav>

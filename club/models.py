@@ -20,10 +20,11 @@ class Court(models.Model):
     preference = models.IntegerField(choices=court_preference, default=1)
     club = models.ForeignKey('Club', on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.name
+
 
 class PriceList(models.Model):
-    weekdays = models.IntegerField()
-    weekend = models.IntegerField()
-    court_price = [(70, '6-14'), (80, '14-22')]
+    court_price = [(70, '6-10'), (60, '10-14'), (80, '14-22')]
     cost = models.IntegerField(choices=court_price)
-    club = models.ForeignKey('Club', on_delete=models.CASCADE)
+    court = models.ForeignKey('Court', on_delete=models.CASCADE)

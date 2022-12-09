@@ -21,6 +21,9 @@
             <th>Nazwa</th>
             <th>Lokalizacja</th>
             <th>Multisport</th>
+            <th>Edycja</th>
+            <th>Usuń</th>
+            <th>Szczegóły</th>
         </tr>
         {% for club in clubs %}
 
@@ -28,7 +31,16 @@
             <td>{{ club.id }}</td>
             <td>{{ club.name }}</td>
             <td>{{ club.location }}</td>
-            <td>{{ club.multisport }}</td>
+            <td>{{ club.get_multisport_display }}</td>
+            <td>
+                <a href="{% url 'club:ClubEdit' pk=club.id %}" class="btn btn-info">Edytuj</a>
+            </td>
+            <td>
+                <a href="{% url 'club:ClubDelete' pk=club.id %}" class="btn btn-info">Usuń</a>
+            </td>
+            <td>
+                <a href="{% url 'club:ClubDetails' pk=club.id %}" class="btn btn-info">Szczegóły</a>
+            </td>
         </tr>
         {% endfor %}
     </table>
