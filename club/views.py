@@ -1,12 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views import View
 from django.views.generic import UpdateView, DeleteView, DetailView
 
 from club import forms
-from club.models import Club, Court
-from django.contrib.auth.decorators import permission_required
+from club.models import Club
 
 
 def club_add(request):
@@ -31,6 +29,8 @@ def court_add(request):
         form = forms.CourtForm()
 
     return render(request, 'club/court_add.html', {'form': form})
+
+
 
 
 def club_show_all(request):
@@ -62,7 +62,6 @@ class ClubDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
 
 
 class ClubDetailsView(DetailView):
-
     model = Club
     template_name = 'club/club_show_details.html'
     context_object_name = 'club'

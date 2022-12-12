@@ -17,7 +17,7 @@ class Court(models.Model):
     court_types = [(1, 'grass'), (2, 'clay'), (3, 'hard')]
     type = models.IntegerField(choices=court_types)
     court_preference = [(1, 'inside'), (2, 'outside')]
-    preference = models.IntegerField(choices=court_preference, default=1)
+    preference = models.IntegerField(choices=court_preference)
     club = models.ForeignKey('Club', on_delete=models.CASCADE)
 
     def __str__(self):
@@ -25,6 +25,9 @@ class Court(models.Model):
 
 
 class PriceList(models.Model):
-    court_price = [(70, '6-10'), (60, '10-14'), (80, '14-22')]
+    court_price = [('6-10', 70), ('10-14', 60), ('14-22', 80)]
     cost = models.IntegerField(choices=court_price)
-    court = models.ForeignKey('Court', on_delete=models.CASCADE)
+    court = models.ForeignKey('Court', on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return {self.cost}

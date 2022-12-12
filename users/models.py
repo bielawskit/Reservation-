@@ -40,7 +40,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     is_club = models.BooleanField(default=False)
     date_join = models.DateTimeField(verbose_name='Date joined', auto_now_add=True)
     NIP = models.CharField(max_length=20, unique=True, null=True, blank=True)
-    telephone_number = models.CharField(max_length=12, default=True)
+    telephone_number = models.CharField(max_length=12)
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
