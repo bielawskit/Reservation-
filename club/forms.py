@@ -15,11 +15,14 @@ class CourtForm(forms.ModelForm):
         fields = ('club', 'name', 'type', 'preference')
 
 
+class CoachForm(forms.ModelForm):
+    class Meta:
+        model = models.Coach
+
+        fields = ('club', 'name', 'surname', 'price')
 
 
 class ClubFormEdit(forms.ModelForm):
     class Meta:
         model = models.Club
         fields = ('name', 'location', 'quantity', 'multisport')
-
-

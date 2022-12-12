@@ -1,22 +1,15 @@
 from users.models import CustomUser
 from django.db import models
-from club.models import Club
-
-
-class Coach(models.Model):
-    name = models.CharField(max_length=25)
-    surname = models.CharField(max_length=35)
-    price = models.IntegerField()
-
-    def __str__(self):
-        return self.name
+from club.models import Club, Coach
 
 
 class Reservation(models.Model):
-    start = models.DateTimeField()
-    finish = models.DateTimeField()
+    start_date = models.DateField()
+    start_time = models.TimeField()
+    finish_date = models.DateField()
+    finish_time = models.TimeField()
 
-    coach = models.ForeignKey('Coach', on_delete=models.DO_NOTHING)
+    coach = models.ForeignKey(Coach, on_delete=models.DO_NOTHING)
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
     user = models.ForeignKey(CustomUser, on_delete=models.DO_NOTHING)
 

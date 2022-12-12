@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from users.models import CustomUser
 from reservation import forms
 from reservation.models import Reservation
 

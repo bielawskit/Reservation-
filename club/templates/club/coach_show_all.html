@@ -1,0 +1,46 @@
+
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Wszystkie kluby
+{% endblock %}
+
+{% block container %}
+
+    <table>
+        <style>
+        table, tr, th, td {
+            border: solid;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+        </style>
+        <tr>
+            <th>Id</th>
+            <th>Imie</th>
+            <th>Nazwisko</th>
+            <th>Cena</th>
+            <th>Klub</th>
+        </tr>
+        {% for club in clubs %}
+
+        <tr>
+            <td>{{ coach.id }}</td>
+            <td>{{ coach.name }}</td>
+            <td>{{ coach.surname }}</td>
+            <td>{{ coach.price }}</td>
+            <td>
+                <a href="{% url 'club:coachEdit' pk=coach.id %}" class="btn btn-info">Edytuj</a>
+            </td>
+            <td>
+                <a href="{% url 'club:coachDelete' pk=coach.id %}" class="btn btn-info">Usuń</a>
+            </td>
+            <td>
+                <a href="{% url 'club:coachDetails' pk=coach.id %}" class="btn btn-info">Szczegóły</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

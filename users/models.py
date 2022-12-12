@@ -29,7 +29,7 @@ class CustomUserManager(BaseUserManager):
         user.is_admin = True
         user.is_superuser = True
         user.is_staff = True
-
+        user.is_club = True
         user.save(using=self._db)
 
 

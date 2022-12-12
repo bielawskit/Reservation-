@@ -28,7 +28,10 @@
             </li>
         {% endif %}
         <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'club:club_show_all' %}">Wszystkie kluby</a>
+                <a class="nav-link active" aria-current="page" href="{% url 'club:clubShowAll' %}">Kluby</a>
+        </li>
+        <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'club:coachShowAll' %}">Trenerzy</a>
         </li>
         {% if user.is_club %}
             <li class="nav-item">
@@ -36,6 +39,9 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'club:courtAdd' %}">Dodaj kort</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'club:coachAdd' %}">Dodaj trenera</a>
             </li>
 
         {% endif %}

@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from django.views.generic import UpdateView, DeleteView, DetailView
 
 from club import forms
-from club.models import Club
+from club.models import Club, Coach
 
 
 def club_add(request):
@@ -31,14 +31,33 @@ def court_add(request):
     return render(request, 'club/court_add.html', {'form': form})
 
 
+def coach_add(request):
+    if request.method == "POST":
+        form = forms.CoachForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home:home')
+    else:
+        form = forms.CoachForm()
 
+    return render(request, 'club/court_add.html', {'form': form})
 
+def coach_show_all(request):
+    coach = Coach.objects.all()
+
+    return render(
+        request,
+        "club/coach_show_all.html",
+        context={
+            'coach': coach
+        }
+    )
 def club_show_all(request):
     clubs = Club.objects.all()
 
     return render(
         request,
-        "club/show_all_clubs.html",
+        "club/clubs_show_all.html",
         context={
             'clubs': clubs
         }

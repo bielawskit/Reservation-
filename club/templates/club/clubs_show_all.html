@@ -33,13 +33,13 @@
             <td>{{ club.location }}</td>
             <td>{{ club.get_multisport_display }}</td>
             <td>
-                <a href="{% url 'club:ClubEdit' pk=club.id %}" class="btn btn-info">Edytuj</a>
+                <a href="{% url 'club:clubEdit' pk=club.id %}" class="btn btn-info">Edytuj</a>
             </td>
             <td>
-                <a href="{% url 'club:ClubDelete' pk=club.id %}" class="btn btn-info">Usuń</a>
+                <a href="{% url 'club:clubDelete' pk=club.id %}" class="btn btn-info">Usuń</a>
             </td>
             <td>
-                <a href="{% url 'club:ClubDetails' pk=club.id %}" class="btn btn-info">Szczegóły</a>
+                <a href="{% url 'club:clubDetails' pk=club.id %}" class="btn btn-info">Szczegóły</a>
             </td>
         </tr>
         {% endfor %}

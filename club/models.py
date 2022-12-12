@@ -31,3 +31,13 @@ class PriceList(models.Model):
 
     def __str__(self):
         return {self.cost}
+
+
+class Coach(models.Model):
+    name = models.CharField(max_length=25)
+    surname = models.CharField(max_length=35)
+    price = models.IntegerField()
+    club = models.ForeignKey('Club', on_delete=models.DO_NOTHING)
+
+    def __str__(self):
+        return self.name
