@@ -4,6 +4,7 @@ from django.db import models
 
 
 class CustomUserManager(BaseUserManager):
+
     def create_user(self, email, name, surname, password=None):
         if not email:
             raise ValueError('Users must provide email')

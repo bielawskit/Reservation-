@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-    Wszystkie kluby
+    Trenerzy
 {% endblock %}
 
 {% block container %}
@@ -23,22 +23,23 @@
             <th>Cena</th>
             <th>Klub</th>
         </tr>
-        {% for club in clubs %}
+        {% for c in coach %}
 
         <tr>
-            <td>{{ coach.id }}</td>
-            <td>{{ coach.name }}</td>
-            <td>{{ coach.surname }}</td>
-            <td>{{ coach.price }}</td>
-            <td>
-                <a href="{% url 'club:coachEdit' pk=coach.id %}" class="btn btn-info">Edytuj</a>
-            </td>
-            <td>
-                <a href="{% url 'club:coachDelete' pk=coach.id %}" class="btn btn-info">Usuń</a>
-            </td>
-            <td>
-                <a href="{% url 'club:coachDetails' pk=coach.id %}" class="btn btn-info">Szczegóły</a>
-            </td>
+            <td>{{ c.id }}</td>
+            <td>{{ c.name }}</td>
+            <td>{{ c.surname }}</td>
+            <td>{{ c.price }}</td>
+            <td>{{ c.club }}</td>
+{#            <td>#}
+{#                <a href="{% url 'club:coachEdit' pk=coach.id %}" class="btn btn-info">Edytuj</a>#}
+{#            </td>#}
+{#            <td>#}
+{#                <a href="{% url 'club:coachDelete' pk=coach.id %}" class="btn btn-info">Usuń</a>#}
+{#            </td>#}
+{#            <td>#}
+{#                <a href="{% url 'club:coachDetails' pk=coach.id %}" class="btn btn-info">Szczegóły</a>#}
+{#            </td>#}
         </tr>
         {% endfor %}
     </table>
