@@ -48,7 +48,20 @@ class CoachForm(forms.ModelForm):
         fields = ('club', 'name', 'surname', 'price')
 
 
-class ClubFormEdit(forms.ModelForm):
+class ClubFormSEdit(forms.ModelForm):
     class Meta:
         model = models.Club
         fields = ('name', 'location', 'quantity', 'multisport')
+
+
+class CoachFormEdit(forms.ModelForm):
+    class Meta:
+        model = models.Coach
+        fields = ('name', 'surname', 'price', 'club')
+
+
+class PriceListForm(forms.ModelForm):
+    class Meta:
+        model = models.PriceList
+
+        fields = ('court', 'cost')

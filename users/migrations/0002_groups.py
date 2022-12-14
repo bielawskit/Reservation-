@@ -1,22 +1,20 @@
-import os
 from django.db import migrations
 from django.db import transaction
 
 
 @transaction.atomic
 def create_groups(apps, schema_editor):
-    with transaction.atomic():
-        Group = apps.get_model('auth', 'Group')
+    Group = apps.get_model('auth', 'Group')
 
-        Group.objects.create(name=os.environ.get('DJ_GROUP_clubs'))
-        Group.objects.create(name=os.environ.get('DJ_GROUP_players'))
+    Group.objects.create(name='clubs')
+    Group.objects.create(name='players')
 
 
 def delete_groups(apps, schema_editor):
     Group = apps.get_model('auth', 'Group')
 
-    Group.objects.get(name=os.environ.get('DJ_GROUP_clubs').delete)
-    Group.objects.get(name=os.environ.get('DJ_GROUP_players').delete)
+    Group.objects.get(name='clubs').delete()
+    Group.objects.get(name='players').delete()
 
 
 class Migration(migrations.Migration):

@@ -8,7 +8,7 @@
 {% block container %}
     <form action="" method="post">
         {% csrf_token %}
-        <h1> Czy jesteś pewny, że chcesz usunąć klub o nazwie ?</h1>
+        <h1> Czy jesteś pewny, że chcesz usunąć klub o nazwie {{ club.name }}?</h1>
 
         <button type="submit" class="btn btn-success">Usuń klub</button>
     </form>

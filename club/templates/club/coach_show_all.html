@@ -8,7 +8,7 @@
 
 {% block container %}
 
-    <table>
+    <table class="table table-light table-striped">
         <style>
         table, tr, th, td {
             border: solid;
@@ -17,29 +17,34 @@
         }
         </style>
         <tr>
-            <th>Id</th>
             <th>Imie</th>
             <th>Nazwisko</th>
             <th>Cena</th>
             <th>Klub</th>
+            {% if user.is_club %}
+                <th>Edycja</th>
+                <th>Usuń</th>
+                <th>Szczegóły</th>
+            {% endif %}
         </tr>
         {% for c in coach %}
 
         <tr>
-            <td>{{ c.id }}</td>
             <td>{{ c.name }}</td>
             <td>{{ c.surname }}</td>
             <td>{{ c.price }}</td>
             <td>{{ c.club }}</td>
-{#            <td>#}
-{#                <a href="{% url 'club:coachEdit' pk=coach.id %}" class="btn btn-info">Edytuj</a>#}
-{#            </td>#}
-{#            <td>#}
-{#                <a href="{% url 'club:coachDelete' pk=coach.id %}" class="btn btn-info">Usuń</a>#}
-{#            </td>#}
-{#            <td>#}
-{#                <a href="{% url 'club:coachDetails' pk=coach.id %}" class="btn btn-info">Szczegóły</a>#}
-{#            </td>#}
+            {% if user.is_club %}
+            <td>
+                <a href="{% url 'club:coachEdit' pk=c.id %}" class="btn btn-success">Edytuj</a>
+            </td>
+            <td>
+                <a href="{% url 'club:coachDelete' pk=c.id %}" class="btn btn-success">Usuń</a>
+            </td>
+            <td>
+                <a href="{% url 'club:coachDetails' pk=c.id %}" class="btn btn-success">Szczegóły</a>
+            </td>
+            {% endif %}
         </tr>
         {% endfor %}
     </table>

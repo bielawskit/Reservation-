@@ -1,9 +1,10 @@
+from django.contrib.auth import get_user
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import UpdateView, DeleteView, DetailView
 
-from club import forms
+from django.views.generic import UpdateView, DeleteView, DetailView
+from club import forms, models
 from club.models import Club, Coach
 
 
@@ -19,16 +20,42 @@ def club_add(request):
     return render(request, 'club/club_add.html', {'form': form})
 
 
+# class CourtAddView(View):
+#
+#     def get(self, request):
+#         return render(request, 'club/court_add.html', {'form': form})
+#
+#     def post(self, request):
+#         form = forms.CourtForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('home:home')
+#
+#         return render(request, 'club/court_add.html', {'form': form})
 def court_add(request):
+    user = get_user(request)
     if request.method == "POST":
+
         form = forms.CourtForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('home:home')
     else:
         form = forms.CourtForm()
+        form.fields['club'].queryset = models.Court.objects.filter(user=user) # request.user
+        return render(request=request, template_name='club/court_add.html', context={"form": form})
 
-    return render(request, 'club/court_add.html', {'form': form})
+
+def court_price_list_add(request):
+    if request.method == "POST":
+        form = forms.PriceListForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home:home')
+    else:
+        form = forms.PriceListForm()
+
+    return render(request, 'club/court_price_list_add.html', {'form': form})
 
 
 def club_show_all(request):
@@ -47,15 +74,15 @@ class ClubEditView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     model = Club
     fields = ('name', 'location', 'quantity', 'multisport')
     template_name = 'club/club_edit.html'
-    success_url = reverse_lazy('club:club_show_all')
-    login_url = reverse_lazy('club:club_show_all')
+    success_url = reverse_lazy('club:clubShowAll')
+    login_url = reverse_lazy('club:clubShowAll')
     permission_required = 'club.change_club'
 
 
 class ClubDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     model = Club
-    success_url = reverse_lazy('club:club_show_all')
-    login_url = reverse_lazy('club:club_show_all')
+    success_url = reverse_lazy('club:clubShowAll')
+    login_url = reverse_lazy('club:clubDelete')
     permission_required = 'club.delete_club'
 
 
@@ -115,7 +142,3 @@ class CoachDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView):
     permission_required = 'coach.delete_coach'
 
 
-class CoachDetailsView(DetailView):
-    model = Coach
-    template_name = 'club/coach_show_details.html'
-    context_object_name = 'coach'

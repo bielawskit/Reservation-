@@ -7,7 +7,7 @@
 
 {% block container %}
 
-    <table>
+    <table class="table table-light table-striped">
         <style>
         table, tr, th, td {
             border: solid;
@@ -19,6 +19,8 @@
             <th>Id</th>
             <th>Klub</th>
             <th>Początek</th>
+            <th>Początek</th>
+            <th>Koniec</th>
             <th>Koniec</th>
             <th>Trener</th>
         </tr>
@@ -27,9 +29,11 @@
         <tr>
             <td>{{ reservation.id }}</td>
             <td>{{ reservation.club }}</td>
-            <td>{{ reservation.start }}</td>
-            <td>{{ reservation.finish }}</td>
-            <td>{{ reservation.get_couch_display }}</td>
+            <td>{{ reservation.start_date }}</td>
+            <td>{{ reservation.start_time}}</td>
+            <td>{{ reservation.finish_date }}</td>
+            <td>{{ reservation.finish_time }}</td>
+            <td>{{ reservation.coach }}</td>
         </tr>
         {% endfor %}
     </table>
