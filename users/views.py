@@ -4,6 +4,7 @@ from users import forms
 
 
 def registration_view(request):
+    '''This view generates a form to registrate '''
     if request.method == "POST":
         form = forms.RegistrationForm(request.POST)
         if form.is_valid():
@@ -18,6 +19,7 @@ def registration_view(request):
 
 
 def login_view(request):
+    '''This view generates a form to login '''
     if request.method == "POST":
         form = forms.LoginForm(request, request.POST)
         if form.is_valid():
@@ -37,7 +39,6 @@ def login_view(request):
 
 
 def logout_view(request):
+    """logout"""
     logout(request)
     return redirect('users:login_view')
-
-

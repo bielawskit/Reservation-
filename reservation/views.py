@@ -4,6 +4,7 @@ from reservation.models import Reservation
 
 
 def reservation_view(request):
+    '''This view generates form to book court'''
     if request.method == 'POST':
         form = forms.ReservationForm(request.POST)
         if form.is_valid():
@@ -16,6 +17,7 @@ def reservation_view(request):
 
 
 def reservation_show_all(request):
+    '''This view generates a list with bookings of the user on courts'''
     reservations = Reservation.objects.all()
 
     return render(

@@ -24,6 +24,7 @@
             {% if user.is_club %}
                 <th>Edycja</th>
                 <th>Usuń</th>
+                <th>Szczegóły</th>
             {% endif %}
         </tr>
         {% for club in clubs %}
@@ -39,6 +40,9 @@
             </td>
             <td>
                 <a href="{% url 'club:clubDelete' pk=club.id %}" class="btn btn-success">Usuń</a>
+            </td>
+            <td>
+                <a href="{% url 'club:clubDetails' pk=club.id %}" class="btn btn-success">Szczegóły</a>
             </td>
             {% endif %}
         </tr>
