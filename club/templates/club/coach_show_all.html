@@ -33,14 +33,14 @@
             <td>{{ c.surname }}</td>
             <td>{{ c.price }}</td>
             <td>{{ c.club }}</td>
-            {% if user.is_club %}
+        {% if user.is_club %}
             <td>
                 <a href="{% url 'club:coachEdit' pk=c.id %}" class="btn btn-success">Edytuj</a>
             </td>
             <td>
                 <a href="{% url 'club:coachDelete' pk=c.id %}" class="btn btn-success">Usuń</a>
             </td>
-            {% endif %}
+        {% endif %}
         </tr>
         {% endfor %}
     </table>

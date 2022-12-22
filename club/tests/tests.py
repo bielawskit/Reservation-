@@ -66,6 +66,13 @@ def test_club_delete_get(db, client, club_id, user):
     assert 'chcesz' in str(response.content)
 
 
+def test_club_edit_get_no_permission(db, client, club_id, user_no_perm):
+    client.force_login(user_no_perm)
+    endpoint = reverse('club:clubDelete', kwargs={'pk': club_id})
+    response = client.get(endpoint)
+    assert response.status_code == 403
+
+
 def test_club_delete_post(db, client, club_id, user):
     client.force_login(user)
     endpoint = reverse('club:clubDelete', kwargs={'pk': club_id})
@@ -74,6 +81,13 @@ def test_club_delete_post(db, client, club_id, user):
     assert response.status_code == 302
     assert response.url.startswith(reverse('club:clubShowAll'))
     assert len(club) == 0
+
+
+def test_club_delete_get_no_permission(db, client, club_id, user_no_perm):
+    client.force_login(user_no_perm)
+    endpoint = reverse('club:clubDelete', kwargs={'pk': club_id})
+    response = client.get(endpoint)
+    assert response.status_code == 403
 
 
 def test_club_details_get(db, client, club_id, user):
@@ -178,9 +192,9 @@ def test_price_list_add_get(db, client, user):
     assert 'Cost' in str(response.content)
 
 
-# def test_price_list_add_post(db, client, court_id, user):
+# def test_price_list_add_post(db, client, court_id, user, club_id):
 #     client.force_login(user)
-#     data = {'name': 'TestAddedCourt', 'type': randint(0, 2), 'preference': 1, 'court': court_id}
+#     data = {'name': 'TestAddedCourt', 'type': 1, 'preference': 1, 'court': court_id}
 #     endpoint = reverse('club:courtPriceListAdd')
 #     response = client.post(endpoint, data)
 #     pricelist = PriceList.objects.all()

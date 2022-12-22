@@ -15,12 +15,17 @@ def test_reservation_add_get(db, client, club_id, user, coach_id):
     endpoint = reverse('reservation:reservation_view')
     response = client.get(endpoint)
     assert response.status_code == 200
-    assert 'Data' in str(response.content)
+    assert 'Start' in str(response.content)
 
+
+# def test_reservation_get_user_no_login(db, client, user_no_perm):
+#     endpoint = reverse('reservation:reservation_view')
+#     response = client.get(endpoint)
+#     assert response.status_code == 403
 
 # def test_reservation_add_post(db, client, club_id, user, coach_id):
 #     client.force_login(user)
-#     data = {'Data_start': '08.12.1999', 'Start': '13:20', 'Data_koniec': '08.12.1999', 'Koniec': '13:20'}
+#     data = {'start': '08.12.1999 12:00', 'finish': '08.12.1999 13:00'}
 #     endpoint = reverse('reservation:reservation_view')
 #     response = client.post(endpoint, data)
 #     reservation = Reservation.objects.all()

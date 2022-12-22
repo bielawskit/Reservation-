@@ -1,79 +1,44 @@
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.db.models import Q
+
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-
+from django.views import View
 from django.views.generic import UpdateView, DeleteView, DetailView
+
 from club import forms, models
+from club.forms import ClubForm, CourtForm, PriceListForm, CoachForm, ClubFormSEdit
 from club.models import Club, Coach
 
 
-# @permission_required('request.user.is_club', login_url=reverse_lazy('users/login_view'))
-def club_add(request):
-    '''This view generates form to create new club'''
-    if request.method == "POST":
-        form = forms.ClubForm(request.POST)
+class ClubAddView(LoginRequiredMixin, View):
+    template_name = 'club/club_add.html'
+    form_class = ClubForm
+
+    def get(self, request):
+        form = self.form_class
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
         if form.is_valid():
             form.instance.user = request.user
             form.save()
             return redirect('home:home')
-    else:
-        form = forms.ClubForm()
-
-    return render(request, 'club/club_add.html', {'form': form})
+        else:
+            return render(request, self.template_name, {'form': form})
 
 
-def court_add(request):
-    '''This view generates form to create new court'''
-    # user = get_user(request)
-    if request.method == "POST":
-
-        form = forms.CourtForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('home:home')
-    else:
-        form = forms.CourtForm()
-        form.fields['club'].queryset = models.Club.objects.filter(user=request.user)
-        return render(request=request, template_name='club/court_add.html', context={"form": form})
-
-    # class CourtAddView(View):
-    #
-    #     def get(self, request):
-    #         return render(request, 'club/court_add.html', {'form': form})
-    #
-    #     def post(self, request):
-    #         form = forms.CourtForm(request.POST)
-    #         if form.is_valid():
-    #             form.save()
-    #             return redirect('home:home')
-    #
-    #         return render(request, 'club/court_add.html', {'form': form})
-
-
-def court_price_list_add(request):
-    '''This view generates form to assign a price to court '''
-    if request.method == "POST":
-        form = forms.PriceListForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('home:home')
-    else:
-        form = forms.PriceListForm()
-        form.fields['court'].queryset = models.Club.objects.filter(user=request.user)
-    return render(request, 'club/court_price_list_add.html', {'form': form})
-
-
-def club_show_all(request):
-    '''This view generates list with all clubs'''
+class ClubShowAllView(View):
+    template_name = 'club/clubs_show_all.html'
     clubs = Club.objects.all()
-
-    return render(
-        request,
-        "club/clubs_show_all.html",
-        context={
-            'clubs': clubs
-        }
-    )
+    def get(self, request):
+        user = self.request.user
+        if self.request.user.is_authenticated:
+            club = Club.objects.filter(user=user.id).order_by('name')
+            return render(request, self.template_name, {'clubs': club})
+        else:
+            return render(request, self.template_name, {'clubs': self.clubs})
 
 
 class ClubEditView(PermissionRequiredMixin, UpdateView):
@@ -100,42 +65,75 @@ class ClubDetailsView(DetailView):
     template_name = 'club/club_show_details.html'
     context_object_name = 'club'
 
-    # def get(self, request, club_id):
-    #     courts = Court.objects.filter(club_id=club_id)
-    #
-    #     return render(
-    #         request,
-    #         'club/club_show_details.html',
-    #         context={
-    #             'courts': courts
-    #         })
 
+class CourtAddView(LoginRequiredMixin, View):
+    template_name = 'club/court_add.html'
+    form_class = CourtForm
 
-def coach_add(request):
-    '''This view generates a form to create new coach'''
-    if request.method == "POST":
-        form = forms.CoachForm(request.POST)
+    def get(self, request):
+        form = self.form_class()
+        form.fields['club'].queryset = models.Club.objects.filter(user=request.user)
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
         if form.is_valid():
             form.save()
             return redirect('home:home')
-    else:
-        form = forms.CoachForm()
+        else:
+            form = self.form_class()
+            form.fields['club'].queryset = models.Club.objects.filter(user=request.user)
+            return render(request, self.template_name, {"form": form})
+
+
+class CourtPriceListAddView(LoginRequiredMixin, View):
+    template_name = 'club/court_price_list_add.html'
+    form_class = PriceListForm
+
+    def get(self, request):
+        form = self.form_class
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home:home')
+        else:
+            form = forms.PriceListForm()
+            form.fields['court'].queryset = models.Club.objects.filter(user=request.user)
+        return render(request, 'club/court_price_list_add.html', {'form': form})
+
+
+class CoachAddView(LoginRequiredMixin, View):
+    template_name = 'club/court_add.html'
+    form_class = CoachForm
+
+    def get(self, request):
+        form = self.form_class()
         form.fields['club'].queryset = models.Club.objects.filter(user=request.user)
+        return render(request, self.template_name, {'form': form})
 
-    return render(request, 'club/court_add.html', {'form': form})
+    def post(self, request):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home:home')
+        else:
+            form.fields['club'].queryset = models.Club.objects.filter(user=request.user)
+            return render(request, self.template_name, {'form': form})
 
-
-def coach_show_all(request):
-    '''This view generates list with all coaches'''
+class CoachShowAllView(View):
+    template_name = 'club/coach_show_all.html'
     coach = Coach.objects.all()
 
-    return render(
-        request,
-        "club/coach_show_all.html",
-        context={
-            'coach': coach
-        }
-    )
+    def get(self, request):
+        user = self.request.user
+        if self.request.user.is_authenticated:
+            coach = Coach.objects.filter(user=user.id)
+            return render(request, self.template_name, {'coach': coach})
+        else:
+            return render(request, self.template_name, {'coach': self.coach})
 
 
 class CoachEditView(PermissionRequiredMixin, UpdateView):
@@ -154,5 +152,3 @@ class CoachDeleteView(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('club:coachShowAll')
     login_url = reverse_lazy('club:coachShowAll')
     permission_required = 'club.delete_coach'
-
-# @permission_required('request.user.is_club', login_url=reverse_lazy('users/login_view'))

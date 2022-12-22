@@ -1,29 +1,42 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
-from reservation import forms
+from django.views import View
+
+
+from reservation.forms import ReservationForm
 from reservation.models import Reservation
 
+class ReservationAddView(LoginRequiredMixin, View):
+    model = Reservation
+    template_name = 'reservation/reservation.html'
+    form_class = ReservationForm
 
-def reservation_view(request):
-    '''This view generates form to book court'''
-    if request.method == 'POST':
-        form = forms.ReservationForm(request.POST)
+
+    def get(self, request):
+        form = self.form_class()
+        # form.fields['coach'].queryset = models.Coach.objects.filter()
+
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request):
+        form = self.form_class(request.POST)
         if form.is_valid():
+            form.instance.user = request.user
             form.save()
-            return redirect('reservation:reservation_view')
-    else:
-        form = forms.ReservationForm()
+            return redirect('home:home')
+        else:
+            # form.fields['coach'].queryset = models.Coach.objects.filter()
+            return render(request, self.template_name, {'form': form})
 
-    return render(request, 'reservation/reservation.html', {'form': form})
 
-
-def reservation_show_all(request):
-    '''This view generates a list with bookings of the user on courts'''
+class ReservationShowAllView(View):
+    template_name = "reservation/reservation_show_all.html",
     reservations = Reservation.objects.all()
+    def get(self, request):
+        user = self.request.user
+        if self.request.user.is_authenticated:
+            reservation = Reservation.objects.filter(user=user.id)
+            return render(request, self.template_name, {'reservations': reservation})
+        else:
+            return render(request, self.template_name, {'clubs': self.reservations})
 
-    return render(
-        request,
-        "reservation/show_all_reservation.html",
-        context={
-            'reservations': reservations,
-        }
-    )
