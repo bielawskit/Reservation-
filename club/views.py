@@ -1,5 +1,4 @@
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.db.models import Q
 
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -7,8 +6,8 @@ from django.views import View
 from django.views.generic import UpdateView, DeleteView, DetailView
 
 from club import forms, models
-from club.forms import ClubForm, CourtForm, PriceListForm, CoachForm, ClubFormSEdit
-from club.models import Club, Coach
+from club.forms import ClubForm, CourtForm, CoachForm
+from club.models import Club, Coach, Court
 
 
 class ClubAddView(LoginRequiredMixin, View):
@@ -32,6 +31,7 @@ class ClubAddView(LoginRequiredMixin, View):
 class ClubShowAllView(View):
     template_name = 'club/clubs_show_all.html'
     clubs = Club.objects.all()
+
     def get(self, request):
         user = self.request.user
         if self.request.user.is_authenticated:
@@ -78,6 +78,7 @@ class CourtAddView(LoginRequiredMixin, View):
     def post(self, request):
         form = self.form_class(request.POST)
         if form.is_valid():
+            form.instance.user = request.user
             form.save()
             return redirect('home:home')
         else:
@@ -86,23 +87,40 @@ class CourtAddView(LoginRequiredMixin, View):
             return render(request, self.template_name, {"form": form})
 
 
-class CourtPriceListAddView(LoginRequiredMixin, View):
-    template_name = 'club/court_price_list_add.html'
-    form_class = PriceListForm
+class CourtEditView(PermissionRequiredMixin, UpdateView):
+    model = Court
+    fields = ('club', 'name', 'type', 'preference', 'cost')
+    template_name = 'club/court_edit.html'
+    success_url = reverse_lazy('club:clubShowAll')
+    login_url = reverse_lazy('club:clubShowAll')
+    permission_required = 'club.change_court'
 
-    def get(self, request):
-        form = self.form_class
-        return render(request, self.template_name, {'form': form})
 
-    def post(self, request):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('home:home')
-        else:
-            form = forms.PriceListForm()
-            form.fields['court'].queryset = models.Club.objects.filter(user=request.user)
-        return render(request, 'club/court_price_list_add.html', {'form': form})
+class CourtDeleteView(PermissionRequiredMixin, DeleteView):
+    model = Court
+    success_url = reverse_lazy('club:clubShowAll')
+    login_url = reverse_lazy('club:courtDelete')
+    permission_required = 'club.delete_court'
+
+
+# class CourtPriceListAddView(LoginRequiredMixin, View):
+#     template_name = 'club/court_price_list_add.html'
+#     form_class = PriceListForm
+#
+#     def get(self, request):
+#         form = self.form_class()
+#         form.fields['court'].queryset = models.Court.objects.filter(user=request.user)
+#         return render(request, self.template_name, {'form': form})
+#
+#     def post(self, request):
+#         form = self.form_class(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('home:home')
+#         else:
+#             form = forms.PriceListForm()
+#             form.fields['court'].queryset = models.Club.objects.filter(user=request.user)
+#         return render(request, 'club/court_price_list_add.html', {'form': form})
 
 
 class CoachAddView(LoginRequiredMixin, View):
@@ -117,11 +135,13 @@ class CoachAddView(LoginRequiredMixin, View):
     def post(self, request):
         form = self.form_class(request.POST)
         if form.is_valid():
+            form.instance.user = request.user
             form.save()
             return redirect('home:home')
         else:
             form.fields['club'].queryset = models.Club.objects.filter(user=request.user)
             return render(request, self.template_name, {'form': form})
+
 
 class CoachShowAllView(View):
     template_name = 'club/coach_show_all.html'

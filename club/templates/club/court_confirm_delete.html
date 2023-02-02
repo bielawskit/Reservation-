@@ -2,17 +2,17 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-    Dodaj cenę
+    Usunięcie kortu
 {% endblock %}
 
 {% block container %}
-
     <form action="" method="post">
         {% csrf_token %}
+        <h1> Czy jesteś pewny, że chcesz usunąć kortu o nazwie {{ court.name }}?</h1>
 
-        {{ form|crispy }}
-
-        <button type="submit" class="btn btn-success">Dodaj cenę do kortu</button>
+        <button type="submit" class="btn btn-success">Usuń kort</button>
     </form>
+
+
 
 {% endblock %}

@@ -2,7 +2,7 @@ from random import randint
 
 from django.urls import reverse
 
-from club.models import Club, Court, Coach, PriceList
+from club.models import Club, Court, Coach
 
 
 def test_club_add_get(db, client, user):

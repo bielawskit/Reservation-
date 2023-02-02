@@ -19,13 +19,14 @@
         <tr>
             <th>Imie</th>
             <th>Nazwisko</th>
-            <th>Cena</th>
+            <th>Stawka godzinowa</th>
             <th>Klub</th>
             {% if user.is_club %}
                 <th>Edycja</th>
                 <th>Usuń</th>
             {% endif %}
         </tr>
+
         {% for c in coach %}
 
         <tr>
@@ -33,14 +34,14 @@
             <td>{{ c.surname }}</td>
             <td>{{ c.price }}</td>
             <td>{{ c.club }}</td>
-        {% if user.is_club %}
-            <td>
-                <a href="{% url 'club:coachEdit' pk=c.id %}" class="btn btn-success">Edytuj</a>
-            </td>
-            <td>
-                <a href="{% url 'club:coachDelete' pk=c.id %}" class="btn btn-success">Usuń</a>
-            </td>
-        {% endif %}
+            {% if user.is_club %}
+                <td>
+                    <a href="{% url 'club:coachEdit' pk=c.id %}" class="btn btn-success">Edytuj</a>
+                </td>
+                <td>
+                    <a href="{% url 'club:coachDelete' pk=c.id %}" class="btn btn-success">Usuń</a>
+                </td>
+            {% endif %}
         </tr>
         {% endfor %}
     </table>

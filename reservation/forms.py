@@ -1,17 +1,33 @@
 from django import forms
 from . import models
+from .models import Reservation
+
+
+# class ReservationForm(forms.ModelForm):
+#     # start = forms.DateField(label='Data_start', widget=forms.widgets.DateInput(attrs={'type': 'date'}))
+#     # start = forms.DateTimeField(label='Początek')
+#     start = forms.DateTimeField(label='Początek')
+#     finish = forms.DateTimeField(label='Koniec')
+#
+#     class Meta:
+#         model = models.Reservation
+#         fields = ('start', 'finish', 'coach', 'club')
+
+
+class DateTimeInput(forms.DateTimeInput):
+    input_type = ('datetime-local')
+
+
+class ExampleForm(forms.Form):
+    my_date_time_field = forms.DateTimeField(widget=DateTimeInput)
 
 
 class ReservationForm(forms.ModelForm):
-    # start_date = forms.DateField(label='Data_start', widget=forms.widgets.DateInput(attrs={'type': 'date'}))
-    # start_time = forms.DateField(label='Start', widget=forms.widgets.DateInput(attrs={'type': 'time'}))
-    # finish_date = forms.DateField(label='Data_koniec', widget=forms.widgets.DateInput(attrs={'type': 'date'}))
-    # finish_time = forms.DateField(label='Koniec', widget=forms.widgets.DateInput(attrs={'type': 'time'}))
-
-    # class Meta:
-    #     model = models.Reservation
-    #     fields = ('start_date', 'start_time', 'finish_date', 'finish_time', 'coach', 'club')
+    start = forms.DateTimeField
+    finish = forms.DateTimeField
 
     class Meta:
         model = models.Reservation
-        fields = ('start', 'finish', 'club', 'coach',)
+        widgets = {'start': DateTimeInput(),
+                   'finish': DateTimeInput()}
+        fields = ('start', 'finish', 'coach', 'club')

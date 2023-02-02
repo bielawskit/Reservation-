@@ -14,7 +14,6 @@ class ReservationAddView(LoginRequiredMixin, View):
 
     def get(self, request):
         form = self.form_class()
-        # form.fields['coach'].queryset = models.Coach.objects.filter()
 
         return render(request, self.template_name, {'form': form})
 

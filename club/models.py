@@ -16,22 +16,16 @@ class Club(models.Model):
 
 class Court(models.Model):
     name = models.CharField(max_length=20)
-    court_types = [(1, 'grass'), (2, 'clay'), (3, 'hard')]
+    court_types = [(1, 'Sztuczna trawa'), (2, 'Mączka'), (3, 'Beton')]
     type = models.IntegerField(choices=court_types)
-    court_preference = [(1, 'inside'), (2, 'outside')]
+    court_preference = [(1, 'wewnętrzny'), (2, 'zewnętrzny')]
     preference = models.IntegerField(choices=court_preference)
     club = models.ForeignKey('Club', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
-
-
-class PriceList(models.Model):
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     cost = models.IntegerField()
-    court = models.ForeignKey('Court', on_delete=models.DO_NOTHING)
 
     def __str__(self):
-        return {self.cost}
+        return f"{self.club}, {self.name}, {self.cost}"
 
 
 class Coach(models.Model):
@@ -39,6 +33,7 @@ class Coach(models.Model):
     surname = models.CharField(max_length=35)
     price = models.IntegerField()
     club = models.ForeignKey('Club', on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
 
     def __str__(self):
         return self.name
