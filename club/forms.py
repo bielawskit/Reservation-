@@ -1,14 +1,18 @@
 from django import forms
-from django.core.exceptions import ValidationError
 
 from . import models
-from .models import Club
 
 
 class ClubForm(forms.ModelForm):
     class Meta:
         model = models.Club
         fields = ('name', 'location', 'quantity', 'multisport')
+
+        labels = {
+            'name': 'Nazwa',
+            'location': 'Lokalizacja',
+            'quantity': 'Ilość kortów'
+        }
 
     # def clean_name(self):
     #     name = self.cleaned_data.get('name')
@@ -38,8 +42,19 @@ class CourtForm(forms.ModelForm):
     class Meta:
         model = models.Court
 
-        fields = ('club', 'name', 'type', 'preference')
+        fields = ('club', 'name', 'type', 'preference', 'cost')
 
+        labels = {
+            'club': 'Klub',
+            'name': 'Nazwa',
+            'type': 'Rodzaj nawierzchni',
+            'preference': 'Wewnętrzny/Zewnętrzny',
+            'cost': 'Cena',
+        }
+class CourtFormEdit(forms.ModelForm):
+    class Meta:
+        model = models.Court
+        fields = ('club', 'name', 'type', 'preference', 'cost')
 
 class CoachForm(forms.ModelForm):
     class Meta:
@@ -47,11 +62,23 @@ class CoachForm(forms.ModelForm):
 
         fields = ('club', 'name', 'surname', 'price')
 
+        labels = {
+            'club': 'Klub',
+            'name': 'Imie',
+            'surname': 'Nazwisko',
+            'price': 'Stawka godzinowa'
+        }
 
-class ClubFormSEdit(forms.ModelForm):
+
+class ClubFormEdit(forms.ModelForm):
     class Meta:
         model = models.Club
         fields = ('name', 'location', 'quantity', 'multisport')
+        labels = {
+            'name': 'Nazwa',
+            'location': 'Lokalizacja',
+            'quantity': 'Ilość kortów'
+        }
 
 
 class CoachFormEdit(forms.ModelForm):
@@ -59,9 +86,10 @@ class CoachFormEdit(forms.ModelForm):
         model = models.Coach
         fields = ('name', 'surname', 'price', 'club')
 
+        labels = {
+            'club': 'Klub',
+            'name': 'Imie',
+            'surname': 'Nazwisko',
+            'price': 'Stawka godzinowa'
+        }
 
-class PriceListForm(forms.ModelForm):
-    class Meta:
-        model = models.PriceList
-
-        fields = ('court', 'cost')

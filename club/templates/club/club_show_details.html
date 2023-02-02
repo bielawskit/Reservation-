@@ -17,16 +17,32 @@
         </style>
         <tr>
             <th> Nazwa </th>
-            <th> Typ </th>
-            <th> Preferencje </th>
+            <th> Rodzaj nawierzchni </th>
+            <th> Wewnętrzny/Zewnętrzny </th>
+            <th> Cena </th>
+            {% if user.is_club %}
+                <th>Edycja</th>
+                <th>Usuń</th>
+            {% endif %}
         </tr>
-        {% for court in club.court_set.all %}
 
+        {% for court in club.court_set.all %}
             <tr>
                 <td>{{ court.name }}</td>
                 <td>{{ court.get_type_display }}</td>
                 <td>{{ court.get_preference_display }}</td>
+                <td>{{ court.cost }}</td>
+                {% if user.is_club %}
+                    <td>
+                        <a href="{% url 'club:courtEdit' pk=court.id %}" class="btn btn-success">Edytuj</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'club:courtDelete' pk=court.id %}" class="btn btn-success">Usuń</a>
+                    </td>
+
+                {% endif %}
             </tr>
+
         {% endfor %}
     </table>
 
