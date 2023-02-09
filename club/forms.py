@@ -51,10 +51,13 @@ class CourtForm(forms.ModelForm):
             'preference': 'Wewnętrzny/Zewnętrzny',
             'cost': 'Cena',
         }
+
+
 class CourtFormEdit(forms.ModelForm):
     class Meta:
         model = models.Court
         fields = ('club', 'name', 'type', 'preference', 'cost')
+
 
 class CoachForm(forms.ModelForm):
     class Meta:
@@ -92,4 +95,3 @@ class CoachFormEdit(forms.ModelForm):
             'surname': 'Nazwisko',
             'price': 'Stawka godzinowa'
         }
-

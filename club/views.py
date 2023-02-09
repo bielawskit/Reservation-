@@ -123,7 +123,7 @@ class CourtDeleteView(PermissionRequiredMixin, DeleteView):
 #         return render(request, 'club/court_price_list_add.html', {'form': form})
 
 
-class CoachAddView(LoginRequiredMixin, View):
+class CoachAddView(View):
     template_name = 'club/court_add.html'
     form_class = CoachForm
 

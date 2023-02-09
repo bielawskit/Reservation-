@@ -1,20 +1,24 @@
+import json
+
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
 
-
-from reservation.forms import ReservationForm
+from club import models
+from club.models import Coach
+from reservation.forms import ReservationForm, ReservationsForm
 from reservation.models import Reservation
+
 
 class ReservationAddView(LoginRequiredMixin, View):
     model = Reservation
     template_name = 'reservation/reservation.html'
     form_class = ReservationForm
 
-
     def get(self, request):
         form = self.form_class()
-
+        # form.fields['club'].queryset = models.Club.objects.filter(coach=request.coach)
         return render(request, self.template_name, {'form': form})
 
     def post(self, request):
@@ -24,13 +28,21 @@ class ReservationAddView(LoginRequiredMixin, View):
             form.save()
             return redirect('home:home')
         else:
-            # form.fields['coach'].queryset = models.Coach.objects.filter()
             return render(request, self.template_name, {'form': form})
+
+
+
+def get_coach(request):
+    data = json.loads(request.body)
+    club_id = data["id"]
+    coaches = Coach.objects.filter(club__id=club_id)
+    return JsonResponse(list(coaches.values("id", "name")), safe=False)
 
 
 class ReservationShowAllView(View):
     template_name = "reservation/reservation_show_all.html",
     reservations = Reservation.objects.all()
+
     def get(self, request):
         user = self.request.user
         if self.request.user.is_authenticated:
@@ -38,4 +50,3 @@ class ReservationShowAllView(View):
             return render(request, self.template_name, {'reservations': reservation})
         else:
             return render(request, self.template_name, {'clubs': self.reservations})
-

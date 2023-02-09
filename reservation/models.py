@@ -1,13 +1,11 @@
-
 from users.models import CustomUser
 from django.db import models
 from club.models import Club, Coach
 
 
 class Reservation(models.Model):
-    start  = models.DateTimeField()
+    start = models.DateTimeField()
     finish = models.DateTimeField()
-
 
     coach = models.ForeignKey(Coach, on_delete=models.DO_NOTHING)
     club = models.ForeignKey(Club, on_delete=models.DO_NOTHING)
