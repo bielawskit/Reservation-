@@ -37,6 +37,7 @@
 
         let club_field = document.getElementById("id_club")
         let coach_field = document.getElementById("id_coach")
+        let court_field = document.getElementById("id_court")
         club_field.addEventListener("change", getClubId)
 
 
@@ -48,10 +49,11 @@
             const data = {id: club_id};
 
             let url = "{% url 'reservation:get_coach' %}"
+            let url2 = "{% url 'reservation:get_court' %}"
 
 
             fetch(url, {
-                method: 'POST', // or 'PUT'
+                method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'X-CSRFToken': csrftoken
@@ -69,7 +71,29 @@
                 .catch((error) => {
                     console.error('Error:', error);
                 });
+
+
+            fetch(url2, {
+                method: 'POST', // or 'PUT'
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken
+                },
+                body: JSON.stringify(data),
+            })
+                .then(response => response.json())
+                .then(data => {
+                console.log('Success:', data);
+                court_field.innerHTML = '<option value="" selected>------</option>'
+                for(let i=0; i < data.length; i++){
+                    court_field.innerHTML += `<option value=" ${data[i]["id"]}" selected"">${data[i]["name"]}</option>`
+                }
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
         }
+
     </script>
 
 {% endblock %}

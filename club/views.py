@@ -1,4 +1,7 @@
+import json
+
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.http import JsonResponse
 
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -85,6 +88,13 @@ class CourtAddView(LoginRequiredMixin, View):
             form = self.form_class()
             form.fields['club'].queryset = models.Club.objects.filter(user=request.user)
             return render(request, self.template_name, {"form": form})
+
+
+def get_court(request):
+    data = json.loads(request.body)
+    club_id = data["id"]
+    courts = Court.objects.filter(club__id=club_id)
+    return JsonResponse(list(courts.values("id", "name")), safe=False)
 
 
 class CourtEditView(PermissionRequiredMixin, UpdateView):

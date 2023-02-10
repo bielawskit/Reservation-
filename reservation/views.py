@@ -4,10 +4,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
-
-from club import models
-from club.models import Coach
-from reservation.forms import ReservationForm, ReservationsForm
+from club.models import Coach, Court
+from reservation.forms import ReservationForm
 from reservation.models import Reservation
 
 
@@ -31,12 +29,18 @@ class ReservationAddView(LoginRequiredMixin, View):
             return render(request, self.template_name, {'form': form})
 
 
-
 def get_coach(request):
     data = json.loads(request.body)
     club_id = data["id"]
     coaches = Coach.objects.filter(club__id=club_id)
     return JsonResponse(list(coaches.values("id", "name")), safe=False)
+
+
+def get_court(request):
+    data = json.loads(request.body)
+    club_id = data["id"]
+    courts = Court.objects.filter(club__id=club_id)
+    return JsonResponse(list(courts.values("id", "name")), safe=False)
 
 
 class ReservationShowAllView(View):

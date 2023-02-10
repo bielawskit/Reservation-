@@ -13,6 +13,9 @@
                 <a class="nav-link active" aria-current="page" href="{% url 'users:logout_view' %}">Wyloguj {{ user }}</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'reservation:reservation_view' %}">Dodaj rezerwacje</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'reservation:reservation_show_all' %}">Twoje rezerwacje</a>
             </li>
         {% else %}

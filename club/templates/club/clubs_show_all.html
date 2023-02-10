@@ -27,7 +27,6 @@
                 <th>Edycja</th>
                 <th>Usuń</th>
             {% endif %}
-            <th>Dodaj rezerwacje</th>
         {% endif %}
         </tr>
         {% for club in clubs %}
@@ -48,9 +47,6 @@
                     </td>
 
                 {% endif %}
-            <td>
-                <a href="{% url 'reservation:reservation_view' %}" class="btn btn-success">Dodaj rezerwacje</a>
-            </td>
             {% endif %}
         </tr>
         {% endfor %}

@@ -9,14 +9,15 @@
 
     <table class="table table-light table-striped">
         <style>
-        table, tr, th, td {
-            border: solid;
-            border-collapse: collapse;
-            padding: 5px;
-        }
+            table, tr, th, td {
+                border: solid;
+                border-collapse: collapse;
+                padding: 5px;
+            }
         </style>
         <tr>
             <th>Klub</th>
+            <th>Kort</th>
             <th>Początek</th>
             <th>Koniec</th>
             <th>Trener</th>
@@ -24,6 +25,7 @@
         {% for reservation in reservations %}
             <tr>
                 <td>{{ reservation.club }}</td>
+                <td>{{ reservation.court }}</td>
                 <td>{{ reservation.start }}</td>
                 <td>{{ reservation.finish }}</td>
                 <td>{{ reservation.coach }}</td>
