@@ -25,7 +25,7 @@ class Court(models.Model):
     cost = models.IntegerField()
 
     def __str__(self):
-        return f"{self.club}, {self.name}, {self.cost}"
+        return f"{self.name}, Cena: {self.cost}"
 
 
 class Coach(models.Model):

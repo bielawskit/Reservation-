@@ -1,11 +1,14 @@
+import json
+
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
+from django.http import JsonResponse
 
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import UpdateView, DeleteView, DetailView
 
-from club import forms, models
+from club import models
 from club.forms import ClubForm, CourtForm, CoachForm
 from club.models import Club, Coach, Court
 
@@ -34,7 +37,8 @@ class ClubShowAllView(View):
 
     def get(self, request):
         user = self.request.user
-        if self.request.user.is_authenticated:
+        group = user.groups.filter(name='clubs').exists()
+        if user.is_authenticated and group:
             club = Club.objects.filter(user=user.id).order_by('name')
             return render(request, self.template_name, {'clubs': club})
         else:
@@ -87,6 +91,13 @@ class CourtAddView(LoginRequiredMixin, View):
             return render(request, self.template_name, {"form": form})
 
 
+def get_court(request):
+    data = json.loads(request.body)
+    club_id = data["id"]
+    courts = Court.objects.filter(club__id=club_id)
+    return JsonResponse(list(courts.values("id", "name")), safe=False)
+
+
 class CourtEditView(PermissionRequiredMixin, UpdateView):
     model = Court
     fields = ('club', 'name', 'type', 'preference', 'cost')
@@ -123,7 +134,7 @@ class CourtDeleteView(PermissionRequiredMixin, DeleteView):
 #         return render(request, 'club/court_price_list_add.html', {'form': form})
 
 
-class CoachAddView(LoginRequiredMixin, View):
+class CoachAddView(View):
     template_name = 'club/court_add.html'
     form_class = CoachForm
 
@@ -149,7 +160,8 @@ class CoachShowAllView(View):
 
     def get(self, request):
         user = self.request.user
-        if self.request.user.is_authenticated:
+        group = user.groups.filter(name='clubs').exists()
+        if user.is_authenticated and group:
             coach = Coach.objects.filter(user=user.id)
             return render(request, self.template_name, {'coach': coach})
         else:

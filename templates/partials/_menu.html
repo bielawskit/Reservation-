@@ -1,46 +1,54 @@
-
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
-  <a class="navbar-brand" href="{% url 'home:home' %}">Strona główna</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+    <a class="navbar-brand" href="{% url 'home:home' %}">Strona główna</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-
-        {% if user.is_authenticated %}
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'users:logout_view' %}">Wyloguj {{ user }}</a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            {% if user.is_authenticated %}
+                {% if user.is_club %}
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Dodaj
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'club:clubAdd' %}">Obiekt</a></li>
+                        <li><a class="dropdown-item" href="{% url 'club:courtAdd' %}">Kort</a></li>
+                        <li><a class="dropdown-item" href="{% url 'club:coachAdd' %}">Trenera</a></li>
+                    </ul>
+                </li>
+                {% endif %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    Rezerwacja
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{% url 'reservation:reservation_view' %}">Dodaj rezerwacje</a></li>
+                    <li><a class="dropdown-item" href="{% url 'reservation:reservation_show_all' %}"> Wszystkie rezerwacje</a></li>
+                </ul>
             </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page"
+                       href="{% url 'users:logout_view' %}">Wyloguj {{ user }}</a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'users:login_view' %}">Zaloguj</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'users:registration_view' %}">Rejestracja</a>
+                </li>
+            {% endif %}
             <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'reservation:reservation_show_all' %}">Twoje rezerwacje</a>
-            </li>
-        {% else %}
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'users:login_view' %}">Zaloguj</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'users:registration_view' %}">Rejestracja</a>
-            </li>
-        {% endif %}
-        <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'club:clubShowAll' %}">Kluby</a>
-        </li>
-        <li class="nav-item">
+            </li>
+            <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'club:coachShowAll' %}">Trenerzy</a>
-        </li>
-        {% if user.is_club %}
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'club:clubAdd' %}">Dodaj obiekt</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'club:courtAdd' %}">Dodaj kort</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'club:coachAdd' %}">Dodaj trenera</a>
-            </li>
-        {% endif %}
-    </ul>
-  </div>
-
+        </ul>
+    </div>
 </nav>

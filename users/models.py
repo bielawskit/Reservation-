@@ -4,6 +4,7 @@ from django.db import models
 
 
 class CustomUserManager(BaseUserManager):
+    use_in_migrations = True
 
     def create_user(self, email, name, surname, password=None):
         if not email:
