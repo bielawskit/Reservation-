@@ -21,4 +21,6 @@ urlpatterns = [
     path('coach/edit/<int:pk>/', views.CoachEditView.as_view(), name='coachEdit'),
     path('coach/delete/<int:pk>/', views.CoachDeleteView.as_view(), name='coachDelete'),
 
+
+
 ]

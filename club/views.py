@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from django.views.generic import UpdateView, DeleteView, DetailView
 
-from club import forms, models
+from club import models
 from club.forms import ClubForm, CourtForm, CoachForm
 from club.models import Club, Coach, Court
 
@@ -37,7 +37,8 @@ class ClubShowAllView(View):
 
     def get(self, request):
         user = self.request.user
-        if self.request.user.is_authenticated:
+        group = user.groups.filter(name='clubs').exists()
+        if user.is_authenticated and group:
             club = Club.objects.filter(user=user.id).order_by('name')
             return render(request, self.template_name, {'clubs': club})
         else:
@@ -159,7 +160,8 @@ class CoachShowAllView(View):
 
     def get(self, request):
         user = self.request.user
-        if self.request.user.is_authenticated:
+        group = user.groups.filter(name='clubs').exists()
+        if user.is_authenticated and group:
             coach = Coach.objects.filter(user=user.id)
             return render(request, self.template_name, {'coach': coach})
         else:

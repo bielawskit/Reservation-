@@ -62,7 +62,7 @@ class ReservationShowAllView(View):
 def send_email(request):
     form = ReservationForm(request.POST)
     mail = CustomUser.objects.filter(email=request.user.email).values_list('email', flat=True)
-    # mail = [request.user.email,]
+    # mail = list(request.user.email)
     club = Club.objects.get(id=request.POST['club']).name
     court = Court.objects.get(id=request.POST['court']).name
     start = request.POST['start']
