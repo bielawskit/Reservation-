@@ -56,5 +56,4 @@ def logout_view(request):
     return redirect('users:login_view')
 
 
-def send_mail(request):
-    mail = CustomUser.objects.get(email=request.user).email
+

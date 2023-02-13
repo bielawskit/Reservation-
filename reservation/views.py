@@ -4,9 +4,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.views import View
-from club.models import Coach, Court
+from django.core.mail import send_mail
+from club.models import Coach, Court, Club
 from reservation.forms import ReservationForm
 from reservation.models import Reservation
+from users.models import CustomUser
 
 
 class ReservationAddView(LoginRequiredMixin, View):
@@ -24,6 +26,7 @@ class ReservationAddView(LoginRequiredMixin, View):
         if form.is_valid():
             form.instance.user = request.user
             form.save()
+            send_email(request)
             return redirect('home:home')
         else:
             return render(request, self.template_name, {'form': form})
@@ -54,3 +57,32 @@ class ReservationShowAllView(View):
             return render(request, self.template_name, {'reservations': reservation})
         else:
             return render(request, self.template_name, {'clubs': self.reservations})
+
+
+def send_email(request):
+    form = ReservationForm(request.POST)
+    mail = CustomUser.objects.filter(email=request.user.email).values_list('email', flat=True)
+    # mail = [request.user.email,]
+    club = Club.objects.get(id=request.POST['club']).name
+    court = Court.objects.get(id=request.POST['court']).name
+    start = request.POST['start']
+    finish = request.POST['finish']
+    template_name = "reservation/reservation_show_all.html",
+    reservations = Reservation.objects.all()
+    email = 'twojtenis555@gmail.com'
+    if form.is_valid():
+        print(mail)
+        message = f"""Potwierdzenie rezerwacji:
+                  Obiekt: {club},
+                  Kort: {court},
+                  Godzina rozpoczęcia: {start} 
+                  Godzina zakończenia: {finish}"""
+        send_mail(
+            'Rezerwacja!',
+            message,
+            email,
+            mail,
+            fail_silently=False)
+    else:
+        return render(request, template_name, {'clubs': reservations})
+    return redirect('home:home')
