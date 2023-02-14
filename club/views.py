@@ -1,7 +1,7 @@
 import json
 
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -135,7 +135,7 @@ class CourtDeleteView(PermissionRequiredMixin, DeleteView):
 
 
 class CoachAddView(View):
-    template_name = 'club/court_add.html'
+    template_name = 'club/coach_add.html'
     form_class = CoachForm
 
     def get(self, request):

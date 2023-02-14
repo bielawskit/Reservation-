@@ -1,12 +1,12 @@
-{% extends 'base.html' %}
+{% extends 'home/home.html' %}
 {% load crispy_forms_tags %}
 
 {% block title %}
     Rezerwacje
 {% endblock %}
 
-{% block container %}
-
+{% block content %}
+<div class="mt-5"></div>
     <form action="" method="post">
         {% csrf_token %}
 
@@ -14,7 +14,8 @@
         {{ form.errors }}
         <button type="submit" class="btn btn-success">Wykonaj</button>
     </form>
-
+    <script>
+    </script>
     <script>
         function getCookie(name) {
             let cookieValue = null;
@@ -62,11 +63,11 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                console.log('Success:', data);
-                coach_field.innerHTML = '<option value="" selected>------</option>'
-                for(let i=0; i < data.length; i++){
-                    coach_field.innerHTML += `<option value=" ${data[i]["id"]}" selected"">${data[i]["name"]}</option>`
-                }
+                    console.log('Success:', data);
+                    coach_field.innerHTML = '<option value="" selected>------</option>'
+                    for (let i = 0; i < data.length; i++) {
+                        coach_field.innerHTML += `<option value=" ${data[i]["id"]}" selected"">${data[i]["name"]}</option>`
+                    }
                 })
                 .catch((error) => {
                     console.error('Error:', error);
@@ -83,17 +84,24 @@
             })
                 .then(response => response.json())
                 .then(data => {
-                console.log('Success:', data);
-                court_field.innerHTML = '<option value="" selected>------</option>'
-                for(let i=0; i < data.length; i++){
-                    court_field.innerHTML += `<option value=" ${data[i]["id"]}" selected"">${data[i]["name"]}</option>`
-                }
+                    console.log('Success:', data);
+                    court_field.innerHTML = '<option value="" selected>------</option>'
+                    for (let i = 0; i < data.length; i++) {
+                        court_field.innerHTML += `<option value=" ${data[i]["id"]}" selected"">${data[i]["name"]}</option>`
+                    }
                 })
                 .catch((error) => {
                     console.error('Error:', error);
                 });
         }
-
     </script>
-
+{#    <script>#}
+{#        $(".dateTimePicker").datetimepicker({#}
+{#            pickDate: false,#}
+{#            pickTime: true,#}
+{#            useSeconds: false,#}
+{#            format: 'hh:mm',#}
+{#            stepping: 15#}
+{#        });#}
+{#    </script>#}
 {% endblock %}

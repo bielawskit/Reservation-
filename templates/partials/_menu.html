@@ -1,54 +1,93 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
-    <a class="navbar-brand" href="{% url 'home:home' %}">Strona główna</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+{% load static %}
+<section data-bs-version="5.1" class="menu cid-s48OLK6784" once="menu" id="menu1-h">
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            {% if user.is_authenticated %}
-                {% if user.is_club %}
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        Dodaj
+    <nav class="navbar navbar-dropdown navbar-fixed-top navbar-expand-lg">
+        <div class="container-fluid">
+            <div class="navbar-brand">
+                <span class="navbar-logo">
+                    <a href="{% url 'home:home' %}">
+                        <img src="{% static 'assets/images/logo.jpeg' %}"
+                             alt="Logo" style="height: 4.1rem;">
                     </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="{% url 'club:clubAdd' %}">Obiekt</a></li>
-                        <li><a class="dropdown-item" href="{% url 'club:courtAdd' %}">Kort</a></li>
-                        <li><a class="dropdown-item" href="{% url 'club:coachAdd' %}">Trenera</a></li>
-                    </ul>
-                </li>
-                {% endif %}
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                   aria-expanded="false">
-                    Rezerwacja
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="{% url 'reservation:reservation_view' %}">Dodaj rezerwacje</a></li>
-                    <li><a class="dropdown-item" href="{% url 'reservation:reservation_show_all' %}"> Wszystkie rezerwacje</a></li>
+                </span>
+            </div>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+                    <li class="nav-item">
+                        <a class="nav-link link text-black display-4" href="{% url 'club:coachShowAll' %}">Trenerzy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link link text-black display-4" href="{% url 'club:clubShowAll' %}">Kluby</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                        {% if user.is_club %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link link text-black dropdown-toggle display-4"
+                                   href="https://mobirise.com"
+                                   data-toggle="dropdown-submenu" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                                   aria-expanded="false">Dodaj</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown-442">
+                                    <a class="text-black show dropdown-item display-4" href="{% url 'club:coachAdd' %}">Trenera</a>
+                                    <a class="text-black show dropdown-item display-4" href="{% url 'club:courtAdd' %}">Kort</a>
+                                    <a class="text-black show dropdown-item display-4" href="{% url 'club:clubAdd' %}">Klub</a>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link link text-black dropdown-toggle display-4" href="#"
+                                   data-toggle="dropdown-submenu" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                                   aria-expanded="false">Obiekty</a>
+                                <div class="dropdown-menu" aria-labelledby="dropdown-253">
+                                    <a class="text-black dropdown-item display-4" href="{% url 'club:clubShowAll' %}">Twoje</a>
+                                    <a class="text-black dropdown-item display-4" href="{% url 'club:clubShowAll' %}">Wszystkie</a>
+                                </div>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link link text-black dropdown-toggle display-4" href="#"
+                               data-toggle="dropdown-submenu" data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                               aria-expanded="false">Rezerwacje</a>
+                            <div class="dropdown-menu" aria-labelledby="dropdown-421">
+                                <a class="text-black dropdown-item display-4"
+                                   href="{% url 'reservation:reservation_view' %}">Dodaj</a>
+                                <a class="text-black dropdown-item display-4"
+                                   href="{% url 'reservation:reservation_show_all' %}">Wszystkie</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link text-black display-4" href="{% url 'users:logout_view' %}">Wyloguj&nbsp;</a>
+                        </li>
+
+                    {% else %}
+                        <li class="nav-item dropdown">
+                            <a class="nav-link link text-black dropdown-toggle show display-4"
+                               href="https://mobirise.com" data-toggle="dropdown-submenu"
+                               data-bs-toggle="dropdown" data-bs-auto-close="outside"
+                               aria-expanded="false">Rejestracja</a>
+                            <div class="dropdown-menu show" aria-labelledby="dropdown-158" data-bs-popper="none">
+                                <a class="text-black dropdown-item display-4"
+                                   href="{% url 'users:registration_view' %}">Klient</a>
+                                <a class="text-black dropdown-item display-4"
+                                   href="{% url 'users:registration_view_club' %}">Klub</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link link text-black show display-4" href="{% url 'users:login_view' %}">Zaloguj</a>
+                        </li>
+                        <div class="icons-menu">
+                            <a class="iconfont-wrapper" href="#" target="_blank">
+                                <span class="p-2 mbr-iconfont socicon-facebook socicon"></span>
+                            </a>
+                            <a class="iconfont-wrapper" href="#" target="_blank">
+                                <span class="p-2 mbr-iconfont socicon-twitter socicon"></span>
+                            </a>
+                            <a class="iconfont-wrapper" href="#" target="_blank">
+                                <span class="p-2 mbr-iconfont socicon-instagram socicon"></span>
+                            </a>
+                        </div>
+                    {% endif %}
+
                 </ul>
-            </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page"
-                       href="{% url 'users:logout_view' %}">Wyloguj {{ user }}</a>
-                </li>
-            {% else %}
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'users:login_view' %}">Zaloguj</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{% url 'users:registration_view' %}">Rejestracja</a>
-                </li>
-            {% endif %}
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'club:clubShowAll' %}">Kluby</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="{% url 'club:coachShowAll' %}">Trenerzy</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+            </div>
+        </div>
+    </nav>
+</section>

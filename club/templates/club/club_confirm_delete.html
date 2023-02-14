@@ -1,16 +1,17 @@
-{% extends 'base.html' %}
+{% extends 'home/home.html' %}
 {% load crispy_forms_tags %}
 
 {% block title %}
     Usunięcie klubu
 {% endblock %}
 
-{% block container %}
+{% block content %}
+    <div class="mt-5"></div>
     <form action="" method="post">
         {% csrf_token %}
         <h1> Czy jesteś pewny, że chcesz usunąć klub o nazwie {{ club.name }}?</h1>
 
-        <button type="submit" class="btn btn-success">Usuń klub</button>
+        <button type="submit" class="btn btn-success " >Usuń klub</button>
     </form>
 
 

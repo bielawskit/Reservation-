@@ -27,6 +27,7 @@ class ReservationAddView(LoginRequiredMixin, View):
             form.instance.user = request.user
             form.save()
             send_email(request)
+            data(request)
             return redirect('home:home')
         else:
             return render(request, self.template_name, {'form': form})
@@ -44,6 +45,7 @@ def get_court(request):
     club_id = data["id"]
     courts = Court.objects.filter(club__id=club_id)
     return JsonResponse(list(courts.values("id", "name")), safe=False)
+
 
 
 class ReservationShowAllView(View):
@@ -86,3 +88,11 @@ def send_email(request):
     else:
         return render(request, template_name, {'clubs': reservations})
     return redirect('home:home')
+
+def data(request):
+    form = ReservationForm(request.POST)
+    start = request.POST['start']
+    finish = request.POST['finish']
+    if form.is_valid():
+        print(start)
+        print(finish)
