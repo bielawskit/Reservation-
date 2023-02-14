@@ -3,12 +3,30 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
 
 
-class RegistrationForm(forms.ModelForm):
+
+class RegistrationFormUser(forms.ModelForm):
     password = forms.CharField(label='Password', widget=forms.PasswordInput)
 
     class Meta:
         model = get_user_model()
-        fields = ('name', 'surname', 'email', 'is_club', 'NIP', 'telephone_number', 'password')
+        fields = ('name', 'surname', 'email', 'telephone_number', 'password')
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data.get('password'))
+
+        if commit:
+            user.save()
+
+        return user
+
+
+class RegistrationFormClub(forms.ModelForm):
+    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+
+    class Meta:
+        model = get_user_model()
+        fields = ('name', 'surname', 'email', 'NIP', 'telephone_number', 'password')
 
     def save(self, commit=True):
         user = super().save(commit=False)

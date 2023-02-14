@@ -1,6 +1,5 @@
 from django import forms
-
-
+import datetime
 from club.models import Coach, Court
 
 from .models import Reservation
@@ -8,10 +7,6 @@ from .models import Reservation
 
 class DateTimeInput(forms.DateTimeInput):
     input_type = ('datetime-local')
-
-
-class ExampleForm(forms.Form):
-    my_date_time_field = forms.DateTimeField(widget=DateTimeInput)
 
 
 class ReservationForm(forms.ModelForm):
@@ -36,3 +31,4 @@ class ReservationForm(forms.ModelForm):
         elif self.instance.pk:
             self.fields['coach'].queryset = self.instance.club.coach_set.order_by('name')
             self.fields['court'].queryset = self.instance.club.court_set.order_by('name')
+
