@@ -41,8 +41,8 @@ class LoginForm(AuthenticationForm):
     username = forms.CharField(widget=forms.EmailInput(attrs={
         'placeholder': 'Email'
     }))
-    password = forms.CharField(widget=forms.PasswordInput(attrs={
-        'placeholder': 'password'
+    password = forms.CharField(label='Hasło',widget=forms.PasswordInput(attrs={
+        'placeholder': 'Hasło'
     }))
 
     class Meta:
