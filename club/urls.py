@@ -7,7 +7,8 @@ app_name = 'club'
 
 urlpatterns = [
     path('club/add/', views.ClubAddView.as_view(), name='clubAdd'),
-    path('clubs/show/all/', views.ClubShowAllView.as_view(), name='clubShowAll'),
+    path('clubs/sorted/', views.ClubSortedView.as_view(), name='clubSorted'),
+    path('clubs/show/all', views.ClubShowAllView.as_view(), name='clubShowAll'),
     path('club/edit/<int:pk>/', views.ClubEditView.as_view(), name='clubEdit'),
     path('club/delete/<int:pk>/', views.ClubDeleteView.as_view(), name='clubDelete'),
     path('club/details/<int:pk>/', views.ClubDetailsView.as_view(), name='clubDetails'),

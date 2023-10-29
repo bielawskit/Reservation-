@@ -36,13 +36,13 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    email = models.EmailField(verbose_name='User email', max_length=60, unique=True)
-    name = models.CharField(max_length=25)
-    surname = models.CharField(max_length=30)
+    email = models.EmailField(verbose_name='Email', max_length=60, unique=True)
+    name = models.CharField(max_length=25, verbose_name="Imię")
+    surname = models.CharField(max_length=30, verbose_name="Nazwisko")
     is_club = models.BooleanField(default=False)
     date_join = models.DateTimeField(verbose_name='Date joined', auto_now_add=True)
     NIP = models.CharField(max_length=20, blank=True, null=True)
-    telephone_number = models.CharField(max_length=12)
+    telephone_number = models.CharField(max_length=12, verbose_name="Numer telefonu")
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)

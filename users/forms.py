@@ -3,9 +3,8 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
 
 
-
 class RegistrationFormUser(forms.ModelForm):
-    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password = forms.CharField(label='Hasło', widget=forms.PasswordInput)
 
     class Meta:
         model = get_user_model()
@@ -22,7 +21,7 @@ class RegistrationFormUser(forms.ModelForm):
 
 
 class RegistrationFormClub(forms.ModelForm):
-    password = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password = forms.CharField(label='Hasło', widget=forms.PasswordInput)
 
     class Meta:
         model = get_user_model()

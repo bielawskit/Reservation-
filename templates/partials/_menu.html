@@ -16,9 +16,11 @@
                     <li class="nav-item">
                         <a class="nav-link link text-black display-4" href="{% url 'club:coachShowAll' %}">Trenerzy</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link link text-black display-4" href="{% url 'club:clubShowAll' %}">Kluby</a>
-                    </li>
+                    {% if not user.is_club %}
+                        <li class="nav-item">
+                            <a class="nav-link link text-black display-4" href="{% url 'club:clubShowAll' %}">Kluby</a>
+                        </li>
+                    {% endif %}
                     {% if user.is_authenticated %}
                         {% if user.is_club %}
                             <li class="nav-item dropdown">
@@ -35,9 +37,9 @@
                             <li class="nav-item dropdown">
                                 <a class="nav-link link text-black dropdown-toggle display-4" href="#"
                                    data-toggle="dropdown-submenu" data-bs-toggle="dropdown" data-bs-auto-close="outside"
-                                   aria-expanded="false">Obiekty</a>
+                                   aria-expanded="false">Kluby</a>
                                 <div class="dropdown-menu" aria-labelledby="dropdown-253">
-                                    <a class="text-black dropdown-item display-4" href="{% url 'club:clubShowAll' %}">Twoje</a>
+                                    <a class="text-black dropdown-item display-4" href="{% url 'club:clubSorted' %}">Twoje</a>
                                     <a class="text-black dropdown-item display-4" href="{% url 'club:clubShowAll' %}">Wszystkie</a>
                                 </div>
                             </li>
@@ -48,9 +50,9 @@
                                aria-expanded="false">Rezerwacje</a>
                             <div class="dropdown-menu" aria-labelledby="dropdown-421">
                                 <a class="text-black dropdown-item display-4"
-                                   href="{% url 'reservation:reservation_view' %}">Dodaj</a>
+                                   href="{% url 'reservation:reservationView' %}">Dodaj</a>
                                 <a class="text-black dropdown-item display-4"
-                                   href="{% url 'reservation:reservation_show_all' %}">Wszystkie</a>
+                                   href="{% url 'reservation:reservationShowAll' %}">Wszystkie</a>
                             </div>
                         </li>
                         <li class="nav-item">

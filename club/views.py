@@ -1,7 +1,7 @@
 import json
 
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
@@ -31,8 +31,8 @@ class ClubAddView(LoginRequiredMixin, View):
             return render(request, self.template_name, {'form': form})
 
 
-class ClubShowAllView(View):
-    template_name = 'club/clubs_show_all.html'
+class ClubSortedView(View):
+    template_name = 'club/clubs_sorted.html'
     clubs = Club.objects.all()
 
     def get(self, request):
@@ -43,6 +43,14 @@ class ClubShowAllView(View):
             return render(request, self.template_name, {'clubs': club})
         else:
             return render(request, self.template_name, {'clubs': self.clubs})
+
+
+class ClubShowAllView(View):
+    template_name = 'club/clubs_show_all.html'
+    clubs = Club.objects.all()
+
+    def get(self, request):
+        return render(request, self.template_name, {'clubs': self.clubs})
 
 
 class ClubEditView(PermissionRequiredMixin, UpdateView):
