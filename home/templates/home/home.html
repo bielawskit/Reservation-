@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+
 {% load static %}
 
 {% block title %}
@@ -13,18 +14,45 @@
             <div class="row justify-content-center">
                 <div class="col-md-12 col-lg-9">
                     {% block content %}
-                        <h1 class="mbr-section-title mbr-fonts-style mb-3 display-1"><strong>...</strong>
-                        </h1>
-{#                        <p class="mbr-text mbr-fonts-style display-7">#}
-{#                            Intro with a picture at the bottom. Great for pro-coders for fast prototyping and small#}
-{#                            customers'#}
-{#                            projects.</p>#}
-{#                        <div class="mbr-section-btn mt-3"><a class="btn btn-secondary display-4"#}
-{#                                                             href="https://mobiri.se">Create#}
-{#                            Free Website!</a></div>#}
-{#                        <div class="image-wrap mt-4">#}
-{#                            <img src="{% static 'assets/images/app4.jpg' %}" alt="Mobirise Website Builder" title="">#}
-{#                        </div>#}
+                    <div class="container mt-5 mb-5">
+                        <div class="row text-center">
+                            <div class="col">
+                                <div class="counter">
+                                    <i class="fas fa-tennis-ball fa-2x"></i>
+                                    <h2 class="timer count-title count-number" data-to="{{ number_of_clubs }}" data-speed="1500"></h2>
+                                    <p class="count-text">LICZBA NASZYCH KLUBÓW</p>
+                                </div>
+                            </div>
+                                  <div class="col">
+                                     <div class="counter">
+                                    <i class="fas fa-user-check fa-2x"></i>
+                                    <h2 class="timer count-title count-number" data-to="1700" data-speed="1500"></h2>
+                                    <p class="count-text ">LICZBA KORTÓW</p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="counter">
+                                    <i class="fas fa-calendar-check fa-2x"></i>
+                                    <h2 class="timer count-title count-number" data-to="11900" data-speed="1500"></h2>
+                                    <p class="count-text ">DOKONANYCH REZERWACJI</p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="counter">
+                                    <i class="fas fa-users fa-2x"></i>
+                                    <h2 class="timer count-title count-number" data-to="15700" data-speed="1500"></h2>
+                                    <p class="count-text ">LICZBA UŻYTKOWNIKÓW</p>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="counter">
+                                    <i class="fas fa-clock fa-2x"></i>
+                                    <h2 class="timer count-title count-number" data-to="5" data-speed="1500"></h2>
+                                    <p class="count-text ">JESTEŚMY NA RYNKU</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     {% endblock %}
                 </div>
             </div>

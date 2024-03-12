@@ -1,5 +1,5 @@
 {% extends 'home/home.html' %}
-{% load crispy_forms_tags %}
+{% load static crispy_forms_tags %}
 
 {% block title %}
     Rezerwacje
@@ -12,9 +12,21 @@
 
         {{ form|crispy }}
         {{ form.errors }}
-        <button type="submit" class="btn btn-success">Wykonaj</button>
+        <button type="submit" class="btn btn-secondary">Dodaj</button>
     </form>
+    {% block scripts %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.full.min.js"></script>
+
     <script>
+        $(function(){
+        $('#id_start, #id_finish').datetimepicker({
+            format:'Y-m-d H:i',
+            step:30,
+        });
+    });
     </script>
     <script>
         function getCookie(name) {
@@ -23,7 +35,6 @@
                 const cookies = document.cookie.split(';');
                 for (let i = 0; i < cookies.length; i++) {
                     const cookie = cookies[i].trim();
-                    // Does this cookie string begin with the name we want?
                     if (cookie.substring(0, name.length + 1) === (name + '=')) {
                         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
                         break;
@@ -95,13 +106,5 @@
                 });
         }
     </script>
-{#    <script>#}
-{#        $(".dateTimePicker").datetimepicker({#}
-{#            pickDate: false,#}
-{#            pickTime: true,#}
-{#            useSeconds: false,#}
-{#            format: 'hh:mm',#}
-{#            stepping: 15#}
-{#        });#}
-{#    </script>#}
+    {% endblock %}
 {% endblock %}

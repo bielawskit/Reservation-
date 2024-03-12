@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
-
+from django.core.exceptions import ValidationError
 
 class RegistrationFormUser(forms.ModelForm):
     password = forms.CharField(label='Hasło', widget=forms.PasswordInput)
@@ -25,7 +25,18 @@ class RegistrationFormClub(forms.ModelForm):
 
     class Meta:
         model = get_user_model()
-        fields = ('name', 'surname', 'email', 'NIP', 'telephone_number', 'password')
+        fields = ('name', 'surname', 'email', 'nip', 'telephone_number', 'password')
+
+    def clean_nip(self):
+        nip = self.cleaned_data.get('NIP')
+        # Sprawdzamy, czy NIP składa się tylko z cyfr
+        if not nip.isdigit():
+            raise ValidationError('NIP może zawierać tylko cyfry.')
+        # Sprawdzamy, czy NIP ma dokładnie 10 cyfr
+        if len(nip) != 10:
+            raise ValidationError('NIP musi składać się z 10 cyfr.')
+
+        return nip
 
     def save(self, commit=True):
         user = super().save(commit=False)

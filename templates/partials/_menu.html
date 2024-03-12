@@ -67,9 +67,9 @@
                                aria-expanded="false">Rejestracja</a>
                             <div class="dropdown-menu show" aria-labelledby="dropdown-158" data-bs-popper="none">
                                 <a class="text-black dropdown-item display-4"
-                                   href="{% url 'users:registration_view' %}">Klient</a>
+                                   href="{% url 'users:registration_view' %}">Osoba indywidualna</a>
                                 <a class="text-black dropdown-item display-4"
-                                   href="{% url 'users:registration_view_club' %}">Klub</a>
+                                   href="{% url 'users:registration_view_club' %}">Obiekt tenisowy</a>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -93,3 +93,32 @@
         </div>
     </nav>
 </section>
+
+<style>
+  .navbar {
+      background-color: #f5f5f5;
+  }
+
+  .dropdown-menu {
+      background-color: #f5f5f5;
+  }
+
+  .navbar-nav .nav-link {
+      color: #000;
+  }
+
+  .icons-menu a {
+      display: inline-block;
+      vertical-align: middle;
+  }
+
+  .navbar-nav, .icons-menu {
+      display: flex;
+      align-items: center;
+  }
+
+  .navbar-logo {
+      display: flex;
+      align-items: center;
+  }
+</style>

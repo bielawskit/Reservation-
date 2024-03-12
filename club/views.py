@@ -164,16 +164,15 @@ class CoachAddView(View):
 
 class CoachShowAllView(View):
     template_name = 'club/coach_show_all.html'
-    coach = Coach.objects.all()
 
     def get(self, request):
         user = self.request.user
         group = user.groups.filter(name='clubs').exists()
         if user.is_authenticated and group:
             coach = Coach.objects.filter(user=user.id)
-            return render(request, self.template_name, {'coach': coach})
         else:
-            return render(request, self.template_name, {'coach': self.coach})
+            coach = Coach.objects.all()
+        return render(request, self.template_name, {'coach': coach})
 
 
 class CoachEditView(PermissionRequiredMixin, UpdateView):

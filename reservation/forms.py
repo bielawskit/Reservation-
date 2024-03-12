@@ -5,14 +5,17 @@ from .models import Reservation
 
 
 class DateTimeInput(forms.DateTimeInput):
-    input_type = ('datetime-local')
+    input_type = 'text'
+    template_name = 'reservation/custom_datetime_input.html'
 
 
 class ReservationForm(forms.ModelForm):
     class Meta:
         model = Reservation
-        widgets = {'start': DateTimeInput(),
-                   'finish': DateTimeInput()}
+        widgets = {
+            'start': DateTimeInput(attrs={'readonly': 'readonly'}),
+            'finish': DateTimeInput(attrs={'readonly': 'readonly'}),
+        }
         fields = ('start', 'finish', 'club', 'court', 'coach')
 
     def __init__(self, *args, **kwargs):
@@ -26,7 +29,7 @@ class ReservationForm(forms.ModelForm):
                 self.fields['coach'].queryset = Coach.objects.filter(club_id=club_id).order_by('name')
                 self.fields['court'].queryset = Court.objects.filter(club_id=club_id).order_by('name')
             except (ValueError, TypeError):
-                pass  # invalid input from the client; ignore and fallback to empty coach queryset
+                pass
         elif self.instance.pk:
             self.fields['coach'].queryset = self.instance.club.coach_set.order_by('name')
             self.fields['court'].queryset = self.instance.club.court_set.order_by('name')

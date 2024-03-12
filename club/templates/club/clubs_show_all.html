@@ -1,4 +1,3 @@
-
 {% extends 'home/home.html' %}
 {% load crispy_forms_tags %}
 
@@ -7,13 +6,18 @@
 {% endblock %}
 
 {% block content %}
-
-    <table class="table table-light table-striped">
+<div class="mt-5"></div>
+    <table class="table table-custom table-striped">
         <style>
+            .table-custom {
+        background-color: #e0e0e0;
+    }
         table, tr, th, td {
             border: solid;
             border-collapse: collapse;
             padding: 5px;
+            text-align: center;
+            vertical-align: middle;
         }
         </style>
 
@@ -29,7 +33,7 @@
             <td>{{ club.location }}</td>
             <td>{{ club.get_multisport_display }}</td>
             <td>
-                <a href="{% url 'club:clubDetails' pk=club.id %}" class="btn btn-success">Korty</a>
+                <a href="{% url 'club:clubDetails' pk=club.id %}" class="btn btn-secondary">Korty</a>
             </td>
         </tr>
         {% endfor %}

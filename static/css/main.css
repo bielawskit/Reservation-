@@ -1,6 +1,9 @@
 body {
     background-color: slategray;
 }
-/*#id_NIP, label[for="id_NIP"]{*/
-/*    display: none;*/
-/*}*/
+
+.btn-custom-gray {
+    background-color: #f5f5f5; /* Delikatny szary */
+    color: #333; /* Ciemniejszy kolor tekstu dla lepszej czytelności */
+    border-color: #ccc; /* Opcjonalnie, lekko ciemniejsza obramówka */
+}
