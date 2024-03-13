@@ -7,8 +7,11 @@
 
 {% block content %}
     <div class="mt-5"></div>
-    <table class="table table-light table-striped">
+    <table class="table table-custom table-striped">
         <style>
+            .table-custom {
+        background-color: #e0e0e0;
+    }
             table, tr, th, td {
                 border: solid;
                 border-collapse: collapse;
@@ -34,10 +37,10 @@
                 <td>{{ court.cost }}</td>
                 {% if user.is_club %}
                     <td>
-                        <a href="{% url 'club:courtEdit' pk=court.id %}" class="btn btn-success">Edytuj</a>
+                        <a href="{% url 'club:courtEdit' pk=court.id %}" class="btn btn-secondary">Edytuj</a>
                     </td>
                     <td>
-                        <a href="{% url 'club:courtDelete' pk=court.id %}" class="btn btn-success">Usuń</a>
+                        <a href="{% url 'club:courtDelete' pk=court.id %}" class="btn btn-secondary">Usuń</a>
                     </td>
 
                 {% endif %}

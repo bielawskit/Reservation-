@@ -1,10 +1,8 @@
 import os
-
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.models import Group
 from django.shortcuts import render, redirect
 from users import forms
-from users.models import CustomUser
 
 
 def registration_view(request):

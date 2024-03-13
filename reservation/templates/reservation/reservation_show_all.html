@@ -11,8 +11,11 @@
     <div class="mt-5"></div>
     {#<div style="background-image: url('../../../../static/assets/images/home.jpg')">#}
     {#    <div style="background-image: url({% static 'assets/images/home.jpg' %})">#}
-    <table class="table table-light table-striped mt-2" >
+    <table class="table table-custom table-striped">
         <style>
+            .table-custom {
+        background-color: #e0e0e0;
+    }
             table, tr, th, td {
                 border: solid;
                 border-collapse: collapse;

@@ -1,0 +1,9 @@
+{% extends "django/forms/widgets/datetime.html" %}
+
+{% block widget %}
+{% spaceless %}
+<div class="form-group">
+    <input type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %} />
+</div>
+{% endspaceless %}
+{% endblock %}
