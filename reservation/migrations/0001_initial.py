@@ -9,19 +9,42 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('club', '0001_initial'),
+        ("club", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Reservation',
+            name="Reservation",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('start', models.DateTimeField()),
-                ('finish', models.DateTimeField()),
-                ('club', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='club.club')),
-                ('coach', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='club.coach')),
-                ('court', models.ForeignKey(on_delete=django.db.models.deletion.DO_NOTHING, to='club.court')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("start", models.DateTimeField()),
+                ("finish", models.DateTimeField()),
+                (
+                    "club",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.DO_NOTHING, to="club.club"
+                    ),
+                ),
+                (
+                    "coach",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.DO_NOTHING, to="club.coach"
+                    ),
+                ),
+                (
+                    "court",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.DO_NOTHING, to="club.court"
+                    ),
+                ),
             ],
         ),
     ]

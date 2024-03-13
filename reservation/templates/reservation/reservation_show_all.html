@@ -36,7 +36,7 @@
                 <td>{{ reservation.court }}</td>
                 <td>{{ reservation.start }}</td>
                 <td>{{ reservation.finish }}</td>
-                <td>{{ reservation.coach }}</td>
+                <td>{{ reservation.coach|default:"Brak" }}</td>
             </tr>
         {% endfor %}
 

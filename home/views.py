@@ -14,10 +14,10 @@ def home(request):
     number_of_users = CustomUser.objects.count()
 
     context = {
-        'number_of_clubs': number_of_clubs,
-        'number_of_courts': number_of_courts,
-        'number_of_reservations': number_of_reservations,
-        'number_of_users': number_of_users,
+        "number_of_clubs": number_of_clubs,
+        "number_of_courts": number_of_courts,
+        "number_of_reservations": number_of_reservations,
+        "number_of_users": number_of_users,
     }
 
-    return render(request, 'home/home.html', context)
+    return render(request, "home/home.html", context)

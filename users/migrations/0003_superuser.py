@@ -18,7 +18,7 @@ def create_superuser(apps, schema_editor):
         email=DJ_SU_EMAIL,
         name=DJ_SU_NAME,
         surname=DJ_SU_SURNAME,
-        password=DJ_SU_PASSWORD
+        password=DJ_SU_PASSWORD,
     )
 
 
@@ -28,9 +28,7 @@ def delete_superuser(apps, schema_editor):
 
 class Migration(migrations.Migration):
     dependencies = [
-        ('users', '0002_groups'),
+        ("users", "0002_groups"),
     ]
 
-    operations = [
-        migrations.RunPython(create_superuser, delete_superuser)
-    ]
+    operations = [migrations.RunPython(create_superuser, delete_superuser)]

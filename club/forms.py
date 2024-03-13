@@ -1,97 +1,95 @@
 from django import forms
+from django.core.exceptions import ValidationError
 
-from . import models
+from club.models import Club, Coach, Court
 
 
 class ClubForm(forms.ModelForm):
     class Meta:
-        model = models.Club
-        fields = ('name', 'location', 'quantity', 'multisport')
+        model = Club
+        fields = ("name", "location", "quantity", "multisport")
 
         labels = {
-            'name': 'Nazwa',
-            'location': 'Lokalizacja',
-            'quantity': 'Ilość kortów'
+            "name": "Nazwa",
+            "location": "Lokalizacja",
+            "quantity": "Ilość kortów",
         }
 
-    # def clean_name(self):
-    #     name = self.cleaned_data.get('name')
-    #     name2 = Club.objects.get('name')
-    #     if name == name2:
-    #         raise ValidationError('Klub o podanej nazwie istnieje.')
-    #     return name
-    #
-    # def save(self, commit=True):
-    #     club = super().save(commit=False)
-    #     club.set_name(self.cleaned_data.get('name'))
-    #
-    #     if commit:
-    #         club.save()
-    #
-    #     return club
+    def clean(self):
+        cleaned_data = super().clean()
+        name = cleaned_data.get("name")
+        location = cleaned_data.get("location")
 
-    # def clean_location(self):
-    #     location = self.cleaned_data.get('location')
-    #
-    #     if location == location:
-    #         raise ValidationError('Pod tym adresem znajduje się już klub.')
-    #     return location
+        if Club.objects.filter(name=name).exists():
+            self.add_error("name", "Klub o tej nazwie już istnieje.")
+
+        if Club.objects.filter(location=location).exists():
+            self.add_error("location", "Klub w tej lokalizacji już istnieje.")
+
+        return cleaned_data
 
 
 class CourtForm(forms.ModelForm):
     class Meta:
-        model = models.Court
+        model = Court
 
-        fields = ('club', 'name', 'type', 'preference', 'cost')
+        fields = ("club", "name", "type", "preference", "cost")
 
         labels = {
-            'club': 'Klub',
-            'name': 'Nazwa',
-            'type': 'Rodzaj nawierzchni',
-            'preference': 'Wewnętrzny/Zewnętrzny',
-            'cost': 'Cena',
+            "club": "Klub",
+            "name": "Nazwa",
+            "type": "Rodzaj nawierzchni",
+            "preference": "Wewnętrzny/Zewnętrzny",
+            "cost": "Cena",
         }
 
 
 class CourtFormEdit(forms.ModelForm):
     class Meta:
-        model = models.Court
-        fields = ('club', 'name', 'type', 'preference', 'cost')
+        model = Court
+        fields = ("club", "name", "type", "preference", "cost")
 
 
 class CoachForm(forms.ModelForm):
     class Meta:
-        model = models.Coach
+        model = Coach
 
-        fields = ('club', 'name', 'surname', 'price')
+        fields = ("club", "name", "surname", "price")
 
         labels = {
-            'club': 'Klub',
-            'name': 'Imie',
-            'surname': 'Nazwisko',
-            'price': 'Stawka godzinowa'
+            "club": "Klub",
+            "name": "Imie",
+            "surname": "Nazwisko",
+            "price": "Stawka godzinowa",
         }
 
 
 class ClubFormEdit(forms.ModelForm):
     class Meta:
-        model = models.Club
-        fields = ('name', 'location', 'quantity', 'multisport')
+        model = Club
+        fields = ("name", "location", "quantity", "multisport")
         labels = {
-            'name': 'Nazwa',
-            'location': 'Lokalizacja',
-            'quantity': 'Ilość kortów'
+            "name": "Nazwa",
+            "location": "Lokalizacja",
+            "quantity": "Ilość kortów",
         }
 
 
 class CoachFormEdit(forms.ModelForm):
     class Meta:
-        model = models.Coach
-        fields = ('name', 'surname', 'price', 'club')
+        model = Coach
+        fields = ("name", "surname", "price", "club")
 
         labels = {
-            'club': 'Klub',
-            'name': 'Imie',
-            'surname': 'Nazwisko',
-            'price': 'Stawka godzinowa'
+            "club": "Klub",
+            "name": "Imie",
+            "surname": "Nazwisko",
+            "price": "Stawka godzinowa",
         }
+
+    def __init__(self, *args, **kwargs):
+        user = kwargs.pop("user", None)
+        super(CoachFormEdit, self).__init__(*args, **kwargs)
+
+        if user:
+            self.fields["club"].queryset = Club.objects.filter(user=user)
