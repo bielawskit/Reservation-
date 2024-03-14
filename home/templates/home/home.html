@@ -7,58 +7,56 @@
 {% endblock %}
 
 {% block container %}
-    <section data-bs-version="5.1" class="header10 cid-tvPSwc6Ksn mbr-fullscreen mbr-parallax-background"
-             id="header10-s">
-        <div class="mbr-overlay" style="opacity: 0.4; background-color: rgb(187, 187, 187);"></div>
-        <div class="align-center container-fluid">
-            <div class="row justify-content-center">
-                <div class="col-md-12 col-lg-9">
-                    {% block content %}
-                    <div class="container mt-5 mb-5">
-                        <div class="row text-center">
-                            <div class="col">
-                                <div class="counter">
-                                    <i class="fas fa-tennis-ball fa-2x"></i>
-                                    <h2 class="timer count-title count-number" data-to="{{ number_of_clubs }}" data-speed="1500"></h2>
-                                    <p class="count-text">LICZBA NASZYCH KLUBÓW</p>
+
+<section data-bs-version="5.1" class="header10 cid-tvPSwc6Ksn mbr-fullscreen mbr-parallax-background" id="header10-s">
+    <div class="mbr-overlay" style="opacity: 0.6; background-color: rgb(187, 187, 187);"></div>
+    <div class="align-center container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-9">
+                {% block content %}
+                <div class="container mt-4 mb-4">
+                    <div class="row text-center">
+                        <div class="col-md-3">
+  <div class="counter">
+    <div class="icon-circle">
+      <img src="{% static 'images/klub.png' %}" alt="klub" />
+      <div class="number">{{ number_of_clubs }}</div>
+    </div>
+    <p class="count-text">LICZBA NASZYCH KLUBÓW</p>
+  </div>
+</div>
+                        <div class="col-md-3">
+                            <div class="counter">
+                                <div class="icon-circle">
+                                    <img src="{% static 'images/korty.png' %}" alt="kort" />
+                                    <div class="number">{{ number_of_courts }}</div>
                                 </div>
+                                <p class="count-text">LICZBA KORTÓW</p>
                             </div>
-                                  <div class="col">
-                                     <div class="counter">
-                                    <i class="fas fa-user-check fa-2x"></i>
-                                    <h2 class="timer count-title count-number" data-to="1700" data-speed="1500"></h2>
-                                    <p class="count-text ">LICZBA KORTÓW</p>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="counter">
+                                <div class="icon-circle">
+                                    <img src="{% static 'images/rezerwacje.png' %}" alt="rezerwacje" />
+                                    <div class="number">{{ number_of_reservations }}</div>
                                 </div>
+                                <p class="count-text">DOKONANYCH REZERWACJI</p>
                             </div>
-                            <div class="col">
-                                <div class="counter">
-                                    <i class="fas fa-calendar-check fa-2x"></i>
-                                    <h2 class="timer count-title count-number" data-to="11900" data-speed="1500"></h2>
-                                    <p class="count-text ">DOKONANYCH REZERWACJI</p>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="counter">
+                                <div class="icon-circle">
+                                    <img src="{% static 'images/uzytkownicy.png' %}" alt="uzytkownicy" />
+                                    <div class="number">{{ number_of_users }}</div>
                                 </div>
-                            </div>
-                            <div class="col">
-                                <div class="counter">
-                                    <i class="fas fa-users fa-2x"></i>
-                                    <h2 class="timer count-title count-number" data-to="15700" data-speed="1500"></h2>
-                                    <p class="count-text ">LICZBA UŻYTKOWNIKÓW</p>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="counter">
-                                    <i class="fas fa-clock fa-2x"></i>
-                                    <h2 class="timer count-title count-number" data-to="5" data-speed="1500"></h2>
-                                    <p class="count-text ">JESTEŚMY NA RYNKU</p>
-                                </div>
+                                <p class="count-text">LICZBA UŻYTKOWNIKÓW</p>
                             </div>
                         </div>
                     </div>
-                    {% endblock %}
                 </div>
+                {% endblock %}
             </div>
         </div>
-    </section>
+    </div>
+</section>
 {% endblock %}
-
-
-

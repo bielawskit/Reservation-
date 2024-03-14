@@ -9,7 +9,7 @@ environ==1.0
 exceptiongroup==1.0.4
 form==0.0.1
 iniconfig==1.1.1
-numpy==1.23.5
+numpy==1.23.5F
 packaging==22.0
 pluggy==1.0.0
 pytest==7.2.0

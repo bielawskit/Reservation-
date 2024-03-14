@@ -53,8 +53,6 @@ class ClubShowAllView(View):
 
 
 class ClubEditView(PermissionRequiredMixin, UpdateView):
-    """This view generates form to change club fields"""
-
     model = Club
     fields = ("name", "location", "quantity", "multisport")
     template_name = "club/club_edit.html"
@@ -159,16 +157,15 @@ class CoachShowAllView(View):
 
 class CoachEditView(PermissionRequiredMixin, UpdateView):
     model = Coach
-    form_class = CoachFormEdit  # Użyj zmodyfikowanego formularza zamiast określania pól bezpośrednio
+    form_class = CoachFormEdit
     template_name = "club/coach_edit.html"
     success_url = reverse_lazy("club:coachShowAll")
     login_url = reverse_lazy("club:coachShowAll")
     permission_required = "club.change_coach"
 
     def get_form_kwargs(self):
-        """Zwraca argumenty do konstruowania formularza."""
         kwargs = super(CoachEditView, self).get_form_kwargs()
-        kwargs["user"] = self.request.user  # Dodaj bieżącego użytkownika do argumentów
+        kwargs["user"] = self.request.user
         return kwargs
 
 
