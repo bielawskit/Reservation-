@@ -1,6 +1,4 @@
 from django.shortcuts import render
-
-from django.shortcuts import render
 from club.models import Club, Court
 from reservation.models import Reservation
 from users.models import CustomUser

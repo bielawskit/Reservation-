@@ -68,10 +68,12 @@ class ClubFormEdit(forms.ModelForm):
     class Meta:
         model = Club
         fields = ("name", "location", "quantity", "multisport")
+
         labels = {
             "name": "Nazwa",
             "location": "Lokalizacja",
             "quantity": "Ilość kortów",
+            "multisport": "Multisport",
         }
 
 
